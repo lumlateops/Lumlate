@@ -1,13 +1,3 @@
-GIT
-  remote: https://github.com/fesplugas/typus.git
-  revision: b43900663730eec4dc10a43be1740d734c035c92
-  specs:
-    typus (3.0.8)
-      bcrypt-ruby
-      fastercsv (~> 1.5)
-      render_inheritable
-      will_paginate (~> 3.0.pre2)
-
 GEM
   remote: http://rubygems.org/
   specs:
@@ -104,6 +94,10 @@ GEM
     thor (0.14.6)
     treetop (1.4.9)
       polyglot (>= 0.3.1)
+    typus (3.0.8)
+      fastercsv (~> 1.5)
+      render_inheritable
+      will_paginate (~> 3.0.pre2)
     tzinfo (0.3.24)
     warden (1.0.3)
       rack (>= 1.0.0)
@@ -122,4 +116,4 @@ DEPENDENCIES
   jquery-rails
   rails (= 3.0.4)
   sqlite3
-  typus!
+  typus
