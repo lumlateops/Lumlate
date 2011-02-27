@@ -8,10 +8,12 @@ gem 'rails', '3.0.4'
 gem 'sqlite3'
 gem 'devise'
 gem 'devise_invitable'
-gem 'typus'
+gem 'typus', :git => 'https://github.com/fesplugas/typus.git'
 gem 'jquery-rails'
 gem 'formtastic'
 gem 'acts-as-taggable-on'
+gem 'heroku'
+gem 'enumerated_attribute', ">=0.2.16"
 
 
 # Use unicorn as the web server

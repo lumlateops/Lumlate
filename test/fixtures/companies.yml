@@ -2,14 +2,10 @@
 
 one:
   domain: MyString
-  address: MyText
-  zipcode: MyString
-  city: MyString
-  state: MyString
+  image: MyString
+  name: MyString
 
 two:
   domain: MyString
-  address: MyText
-  zipcode: MyString
-  city: MyString
-  state: MyString
+  image: MyString
+  name: MyString

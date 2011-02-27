@@ -1,14 +1,13 @@
 class CreateCompanies < ActiveRecord::Migration
   def self.up
     create_table :companies do |t|
-      t.string :domain
-      t.text :address
-      t.string :zipcode
-      t.string :city
-      t.string :state
+      t.string :domain, :null => false
+      t.string :name, :null => false
+      t.string :image
 
       t.timestamps
     end
+    add_index :companies, :domain, :unique => true
   end
 
   def self.down

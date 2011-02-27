@@ -1,0 +1,54 @@
+# Typus Models Configuration File
+#
+# Use the README file as a reference to customize settings.
+
+Company:
+  fields:
+    default: domain, name, image
+    form: domain, name, image
+  order_by: 
+  relationships: deals, locations, subscriptions
+  filters: created_at
+  search: name
+  application: lumlate
+
+Deal:
+  fields:
+    default: title, description, maxvalue, expiry, where, company_id, subscription_id, subscription, company
+    form: title, description, maxvalue, expiry, where, company_id, subscription_id, subscription, company
+  order_by: 
+  relationships: company, emails, subscription, users
+  filters: created_at
+  search: title
+  application: lumlate
+
+Email:
+  fields:
+    default: sent, from, to, userdata, user_id, subscription_id, deal_id, user, deal, subscription
+    form: sent, from, to, userdata, user_id, subscription_id, deal_id, user, deal, subscription
+  order_by: 
+  relationships: deal, subscription, user
+  filters: created_at
+  search: 
+  application: lumlate
+
+Location:
+  fields:
+    default: address, zipcode, city, state, company_id, company
+    form: address, zipcode, city, state, company_id, company
+  order_by: 
+  relationships: company
+  filters: created_at
+  search: 
+  application: lumlate
+
+Subscription:
+  fields:
+    default: url, title, company_id, company
+    form: url, title, company_id, company
+  order_by: 
+  relationships: company, deals, emails, users
+  filters: created_at
+  search: title
+  application: lumlate
+
