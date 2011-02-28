@@ -13,7 +13,7 @@ gem 'jquery-rails'
 gem 'formtastic'
 gem 'acts-as-taggable-on'
 gem 'heroku'
-gem 'enumerated_attribute', ">=0.2.16"
+gem 'seed-fu'
 
 
 # Use unicorn as the web server

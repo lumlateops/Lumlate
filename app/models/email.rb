@@ -2,10 +2,12 @@ class Email < ActiveRecord::Base
   belongs_to :user
   belongs_to :subscription
   belongs_to :deal
+  belongs_to :email_type
 
   validates_associated :user
+  validates_associated :email_type
 
-  validates :id, :presence => true,
+  validates :external_id, :presence => true,
                  :uniqueness => true
 
   validates :sent, :presence => true,
@@ -16,9 +18,7 @@ class Email < ActiveRecord::Base
 
   validates :to, :presence => true,
                  :uniqueness => true
-               
-  validates :type, :presence => true,
-                   :uniqueness => true
+
 
 
 end

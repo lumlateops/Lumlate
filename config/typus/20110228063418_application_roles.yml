@@ -1,0 +1,8 @@
+# Typus Roles Configuration File
+#
+# Use the README file as a reference to customize settings.
+
+admin:
+  DealType: create, read, update, delete
+  EmailType: create, read, update, delete
+  SubscriptionType: create, read, update, delete
