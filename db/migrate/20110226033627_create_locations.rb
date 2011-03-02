@@ -15,4 +15,5 @@ class CreateLocations < ActiveRecord::Migration
   def self.down
     drop_table :locations
   end
+  
 end

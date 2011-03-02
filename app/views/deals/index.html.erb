@@ -1,0 +1,28 @@
+<h1>Deals available right now:</h1>
+
+<%= will_paginate @deals%>
+<%= page_entries_info @deals %>
+<br/>
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Expiry</th>
+    <th>Tags</th>
+    <th>Company</th>
+    <th>Type</th>
+  </tr>
+
+<% @deals.each do |deal| %>
+  <tr>
+    <td><%= deal.title %></td>
+    <td><%= deal.expiry %></td>
+    <td><%= deal.tag_list %></td>
+    <td><%= deal.company.name %></td>
+    <td><%= deal.deal_type.name %></td>
+  </tr>
+<% end %>
+</table>
+
+
+
+<br />

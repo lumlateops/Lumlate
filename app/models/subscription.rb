@@ -15,4 +15,12 @@ class Subscription < ActiveRecord::Base
     :uniqueness => true
 
   acts_as_taggable_on :tags
+
+  def slug
+    title.parameterize()
+  end
+
+  def to_label
+    title
+  end
 end

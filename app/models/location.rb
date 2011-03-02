@@ -9,5 +9,10 @@ class Location < ActiveRecord::Base
                     :uniqueness => true
   validates :state, :presence => true,
                     :uniqueness => true
-  
+
+  def to_label
+    label = city
+    label << "," << state
+    label
+  end
 end

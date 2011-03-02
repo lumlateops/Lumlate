@@ -19,6 +19,7 @@ class Email < ActiveRecord::Base
   validates :to, :presence => true,
                  :uniqueness => true
 
-
-
+  def to_label
+    subject
+  end
 end

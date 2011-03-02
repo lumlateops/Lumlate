@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110302033337) do
+ActiveRecord::Schema.define(:version => 20110302072139) do
 
   create_table "companies", :force => true do |t|
     t.string   "domain",     :null => false
@@ -71,6 +71,7 @@ ActiveRecord::Schema.define(:version => 20110302033337) do
     t.integer  "email_type_id",   :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "subject"
   end
 
   add_index "emails", ["deal_id"], :name => "index_emails_on_deal_id"
