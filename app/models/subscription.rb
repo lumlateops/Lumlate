@@ -13,4 +13,6 @@ class Subscription < ActiveRecord::Base
     :uniqueness => true
   validates :title, :presence => true,
     :uniqueness => true
+
+  acts_as_taggable_on :tags
 end

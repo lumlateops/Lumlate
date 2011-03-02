@@ -1,0 +1,96 @@
+# Typus Models Configuration File
+#
+# Use the README file as a reference to customize settings.
+
+Company:
+  fields:
+    default: domain, name, image, tag_list
+    form: domain, name, image, tag_list
+  order_by: 
+  relationships: deals, locations, subscriptions
+  filters: created_at
+  search: name
+  application: lumlate
+
+Deal:
+  fields:
+    default: external_id, title, description, maxvalue, expiry, company, subscription, deal_type, tag_list
+    form: external_id, title, description, maxvalue, expiry, company, subscription, deal_type, tag_list
+  order_by: 
+  relationships: company, deal_type, emails, subscription, users
+  filters: created_at
+  search: title
+  application: lumlate
+
+DealType:
+  fields:
+    default: name
+    form: name
+  order_by: 
+  relationships: 
+  filters: created_at
+  search: name
+  application: lumlate
+
+Email:
+  fields:
+    default: external_id, sent, from, to, userdata, user_id, subscription_id, deal_id, user, subscription, deal, email_type
+    form: external_id, sent, from, to, userdata, deal_id, user, subscription, deal, email_type
+  order_by: 
+  relationships: deal, email_type, subscription, user
+  filters: created_at
+  search: 
+  application: lumlate
+
+EmailType:
+  fields:
+    default: name
+    form: name
+  order_by: 
+  relationships: 
+  filters: created_at
+  search: name
+  application: lumlate
+
+Location:
+  fields:
+    default: address, zipcode, city, state, company_id, company
+    form: address, zipcode, city, state, company
+  order_by: 
+  relationships: company
+  filters: created_at
+  search: 
+  application: lumlate
+
+Subscription:
+  fields:
+    default: external_id, url, title, company_id, subscription_type, company, tag_list
+    form: external_id, url, title, subscription_type, company, tag_list
+  order_by: 
+  relationships: company, deals, emails, subscription_type, users
+  filters: created_at
+  search: title
+  application: lumlate
+
+SubscriptionType:
+  fields:
+    default: name
+    form: name
+  order_by: 
+  relationships: 
+  filters: created_at
+  search: name
+  application: lumlate
+
+User:
+  fields:
+    default: email, remember_token, sign_in_count, current_sign_in_at, last_sign_in_at, current_sign_in_ip, last_sign_in_ip, username, role
+    form: email, username, role
+  order_by: 
+  relationships: deals, emails, subscriptions
+  filters: created_at
+  search: 
+  application: lumlate
+  options:
+    read_only:remember_token, sign_in_count, current_sign_in_at, last_sign_in_at, current_sign_in_ip, last_sign_in_ip,
+

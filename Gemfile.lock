@@ -1,3 +1,14 @@
+GIT
+  remote: https://github.com/fesplugas/typus.git
+  revision: 1c0609180c8766bd649b9481d5bed3c8234e6d83
+  branch: wip/devise
+  specs:
+    typus (3.0.8)
+      bcrypt-ruby
+      fastercsv (~> 1.5)
+      render_inheritable
+      will_paginate (~> 3.0.pre2)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -29,7 +40,7 @@ GEM
       activesupport (= 3.0.4)
     activesupport (3.0.4)
     acts-as-taggable-on (2.0.6)
-    arel (2.0.8)
+    arel (2.0.9)
     bcrypt-ruby (2.1.4)
     builder (2.1.2)
     configuration (1.2.0)
@@ -93,10 +104,6 @@ GEM
     thor (0.14.6)
     treetop (1.4.9)
       polyglot (>= 0.3.1)
-    typus (3.0.8)
-      fastercsv (~> 1.5)
-      render_inheritable
-      will_paginate (~> 3.0.pre2)
     tzinfo (0.3.24)
     warden (1.0.3)
       rack (>= 1.0.0)
@@ -115,4 +122,4 @@ DEPENDENCIES
   rails (= 3.0.4)
   seed-fu
   sqlite3
-  typus
+  typus!

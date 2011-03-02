@@ -11,4 +11,5 @@ class Company < ActiveRecord::Base
                    :presence => true,
                    :uniqueness => true
 
+  acts_as_taggable_on :tags
 end

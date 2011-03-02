@@ -21,6 +21,7 @@ db\:rollback=Rolls the schema back to the previous version (specify steps w/ STE
 db\:schema\:dump=Create a db/schema.rb file that can be portably used against any DB supported by AR
 db\:schema\:load=Load a schema.rb file into the database
 db\:seed=Load the seed data from db/seeds.rb
+db\:seed_fu=Loads seed data for the current environment. It will look for\n    ruby seed files in <RAILS_ROOT>/db/fixtures/ and\n    <RAILS_ROOT>/db/fixtures/<RAILS_ENV>/.\n\n    By default it will load any ruby files found. You can filter the files\n    loaded by passing in the FILTER environment variable with a comma-delimited\n    list of patterns to include. Any files not matching the pattern will\n    not be loaded.\n\n    You can also change the directory where seed files are looked for\n    with the FIXTURE_PATH environment variable.\n\n    Examples:\n      # default, to load all seed files for the current environment\n      rake db:seed\n\n      # to load seed files matching orders or customers\n      rake db:seed FILTER=orders,customers\n\n      # to load files from RAILS_ROOT/features/fixtures\n      rake db:seed FIXTURE_PATH=features/fixtures
 db\:sessions\:clear=
 db\:sessions\:create=
 db\:setup=Create the database, load the schema, and initialize with the seed data (use db:reset to also drop the db first)
