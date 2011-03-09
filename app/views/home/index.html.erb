@@ -1,9 +1,29 @@
-<h1>Welcome to Lumlate.com</h1>
-<p>Test data and website for now </p>
+<div id="homepage" class="span-24 last">
+  <h2>Welcome to Lumlate.com</h2>
+  <div id="tabs" class="ui-tabs ui-widget ui-widget-content ui-corner-all">
+    <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
+      <li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active">
+        <a href="#Subscriptions">Subscriptions</a>
+      </li>
+      <li class="ui-state-default ui-corner-top">
+        <a href="deals" title="Deals">Deals</a>
+      </li>
+      <li class="ui-state-default ui-corner-top">
+        <a href="theme.html" title="Emails">Emails</a>
+      </li>
+    </ul>
+    <div class="ui-tabs-panel ui-widget-content ui-corner-bottom" id="Subscriptions">
+      <p>Subscriptions are not yet done.</p>
+    </div>
 
-<% unless user_signed_in? -%>
-  <p><%= link_to 'Sign up', new_user_registration_path %></p>
-  <p><%= link_to 'Sign in', new_user_session_path %></p>
-<% end -%>
+    <div class="ui-tabs-panel ui-widget-content ui-corner-bottom" id="Deals">
+      <p>Deals are not yet done.</p>
+    </div>
 
-<%=link_to 'Your deals', deals_path %>
+    <div class="ui-tabs-panel ui-widget-content ui-corner-bottom" id="Emails">
+      <p>Emails are not yet done.</p>
+    </div>
+
+  </div>
+</div>
+</div>

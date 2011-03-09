@@ -1,33 +1,44 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Lumlate: Deal Subscriptions Organized</title>
-  <%= stylesheet_link_tag :all %>
-  <%= javascript_include_tag :defaults %>
-  <%= csrf_meta_tag %>
-</head>
-<body>
-  <div id="header">
-    <%- flash.each do |name, msg| -%>
-      <%= content_tag :div, msg, :id => "flash_#{name}" if msg.is_a?(String) %>
-    <%- end -%>
+  <head>
+    <title>Lumlate: Deal Subscriptions Organized</title>
+    <%= stylesheet_link_tag :all, :recursive => true, :cache=>true %>
+    <%= javascript_include_tag :all, :recursive => true %>
+    <%= csrf_meta_tag %>
+  </head>
+  <body>
+    <div class = "container">
+      <div id="header" class="span-24 last">
+        <p><%= link_to 'Home', root_path %></p>
 
-    <p><%= link_to 'Home', root_path %></p>
-
-    <% if user_signed_in? -%>
-      <div id="user_login_box" style="float:right">
-        <%= current_user.email %> |
-        <%= link_to 'My info', edit_user_registration_path %> |
-        <%= link_to 'Sign out', destroy_user_session_path %>
+        <% if user_signed_in? %>
+          <div id="user_login_box" style="float:right">
+            <%= current_user.email %> |
+            <%= link_to 'My info', edit_user_registration_path %> |
+            <%= link_to 'Sign out', destroy_user_session_path %>
+          </div>
+        <% end %>
       </div>
-    <% end -%>
-    <div style="clear:both"></div>
-  </div>
-  <div id="content">
-    <%= yield %>
-  </div>
-  <div id="footer">
-  </div>
+      <hr/>
+      <div id="msg" class="span-24 last">
+        <% flash.each do |name, msg| %>
+          <div id="msgui" class="ui-state-highlight ui-corner-all" style="margin-top: 20px; padding: 0 .7em;">
+            <p><% if name == :error %>
+              <span class="ui-icon ui-icon-error" style="float: left; margin-right: .3em;"></span>
+              <% else %>
+              <span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
+              <% end %>
+              <%= msg %></p>
+          </div>
+        <% end %>
 
-</body>
+      </div>
+      <div id="content" class="span-24 last">
+        <%= yield %>
+      </div>
+      <div id="footer" class="span-24 last">
+      </div>
+    </div>
+
+  </body>
 </html>
