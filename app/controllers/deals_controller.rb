@@ -4,7 +4,7 @@ class DealsController < ApplicationController
   def index
     @deals = current_user.deals.paginate :page => params[:page], :order => 'expiry DESC'
     respond_to do |format|
-      format.html # index.html.erb
+      format.html {render :layout => !request.xhr?}
       format.json  { render :json => @deals }
     end
   end

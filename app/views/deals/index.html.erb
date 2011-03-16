@@ -1,28 +1,14 @@
-<h1>Deals available right now:</h1>
-
-<%= will_paginate @deals%>
-<%= page_entries_info @deals %>
-<br/>
-<table>
-  <tr>
-    <th>Title</th>
-    <th>Expiry</th>
-    <th>Tags</th>
-    <th>Company</th>
-    <th>Type</th>
-  </tr>
-
-<% @deals.each do |deal| %>
-  <tr>
-    <td><%= deal.title %></td>
-    <td><%= deal.expiry %></td>
-    <td><%= deal.tag_list %></td>
-    <td><%= deal.company.name %></td>
-    <td><%= deal.deal_type.name %></td>
-  </tr>
-<% end %>
-</table>
-
-
-
-<br />
+<div id="deals-feed" class="span-24 last">
+  
+    <% @deals.each do |deal| %>
+      <h3 class="ui-accordion-header ui-helper-reset ui-state-default ui-corner-all">        
+        <a href="#"><%= deal.title %></a>
+      </h3>
+      <div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom">
+        Will expire at:<%= deal.expiry %><br />
+        Tagged to: <%= deal.tag_list %><br />
+        Deal is from: <%= deal.company.name %> <br/>
+        Deal Type: <%= deal.deal_type.name %>
+      </div>
+    <% end %>
+</div>

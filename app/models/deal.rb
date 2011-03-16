@@ -24,4 +24,8 @@ class Deal < ActiveRecord::Base
   def to_label
     title
   end
+
+  def time_left
+    expiry
+  end
 end
