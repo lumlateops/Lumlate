@@ -10,14 +10,11 @@ class Email < ActiveRecord::Base
   validates :external_id, :presence => true,
                  :uniqueness => true
 
-  validates :sent, :presence => true,
-                 :uniqueness => true
+  validates :sent, :presence => true
 
-  validates :from, :presence => true,
-                 :uniqueness => true
+  validates :from, :presence => true
 
-  validates :to, :presence => true,
-                 :uniqueness => true
+  validates :to, :presence => true
 
   def to_label
     subject
