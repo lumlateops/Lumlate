@@ -15,6 +15,7 @@ gem 'acts-as-taggable-on'
 gem 'heroku'
 gem 'seed-fu'
 gem 'mysql2'
+gem 'taps'
 
 # Use unicorn as the web server
 # gem 'unicorn'
