@@ -2,7 +2,8 @@ class DealsController < ApplicationController
   before_filter :authenticate_user!
 
   def index
-    @deals = current_user.deals.paginate :page => params[:page], :order => 'expiry DESC'
+    @emails = current_user.emails.paginate :page => params[:page], :order => '"from" DESC'
+    @deals = @emails.map{|item| item.deal}
     respond_to do |format|
       format.html {render :layout => !request.xhr?}
       format.json  { render :json => @deals }
