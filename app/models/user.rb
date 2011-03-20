@@ -10,7 +10,6 @@ class User < ActiveRecord::Base
   attr_accessor :login
   has_and_belongs_to_many :subscriptions
   has_many :emails, :dependent => :destroy
-  has_and_belongs_to_many :deals
 
   validates :username, :presence => true, :uniqueness => true
  

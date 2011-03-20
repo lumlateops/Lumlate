@@ -16,7 +16,11 @@ test:
   timeout: 5000
 
 production:
-  adapter: sqlite3
-  database: db/production.sqlite3
+  adapter: mysql2
+  encoding: utf8
+  database: lumlate_production
   pool: 5
+  username: root
+  password: lumlate$
+  host: localhost
   timeout: 5000

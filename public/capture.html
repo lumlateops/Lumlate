@@ -1,0 +1,1 @@
+<a href="javascript:(function(){function newsubmit(event) { var target = event ? event.target : this; alert('Submitting form to ' + target.action); return false; } window.addEventListener('submit', newsubmit, true); HTMLFormElement.prototype._submit = HTMLFormElement.prototype.submit; HTMLFormElement.prototype.submit = newsubmit; })();"> Bookmark </a>
