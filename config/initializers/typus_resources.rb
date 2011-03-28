@@ -10,7 +10,7 @@ Typus::Resources.setup do |config|
   # config.form_rows = 15
 
   # Defines action_after_save.
-  # config.action_after_save = "edit"
+  config.action_after_save = "list"
 
   # Defines minute_step.
   # config.minute_step = 5
