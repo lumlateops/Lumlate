@@ -1,14 +1,20 @@
 <div id="deals-feed" class="span-24 last">
-  
-    <% @deals.each do |deal| %>
-      <h3 class="ui-accordion-header ui-helper-reset ui-state-default ui-corner-all">        
-        <a href="#"><%= deal.title %></a>
-      </h3>
-      <div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom">
-        Will expire at:<%= deal.expiry %><br />
-        Tagged to: <%= deal.tag_list %><br />
-        Deal is from: <%= deal.company.name %> <br/>
-        Deal Type: <%= deal.deal_type.name %>
-      </div>
-    <% end %>
+
+  <% @deal_emails.each do |deal_email| %>
+    <h3 class="ui-accordion-header ui-helper-reset ui-state-default ui-corner-all">
+      <a href="#"><%= deal_email.subject %></a>
+    </h3>
+    <div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom">
+      <% if deal_email.deal %>
+        Will expire at:<%= deal_email.deal.expiry %><br />
+        Tagged to: <%= deal_email.deal.tag_list %><br />
+        Deal is from: <%= deal_email.deal.company.name %> <br/>
+        Deal Type: <%= deal_email.deal.deal_type.name %>
+      <% end %>
+        Sent at:<%  deal_email.sent %><br/>
+        From: <%  deal_email.from %> <br/>
+        To: <% deal_email.to %> <br/>
+        
+    </div>
+  <% end %>
 </div>

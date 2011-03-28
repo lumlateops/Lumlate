@@ -8,7 +8,8 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :remember_me, 
                   :username, :login, :to_label
   attr_accessor :login
-  has_and_belongs_to_many :subscriptions
+  has_many :subscriptions, :through => :user_subscriptions
+  has_many :user_subscriptions, :dependent => :destroy
   has_many :emails, :dependent => :destroy
 
   validates :username, :presence => true, :uniqueness => true

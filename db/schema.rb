@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110320020231) do
+ActiveRecord::Schema.define(:version => 20110327232654) do
 
   create_table "companies", :force => true do |t|
     t.string   "domain",     :null => false
@@ -29,8 +29,7 @@ ActiveRecord::Schema.define(:version => 20110320020231) do
   end
 
   create_table "deals", :force => true do |t|
-    t.string   "external_id",     :null => false
-    t.string   "title",           :null => false
+    t.string   "title"
     t.text     "description"
     t.float    "maxvalue"
     t.datetime "expiry"
@@ -42,7 +41,6 @@ ActiveRecord::Schema.define(:version => 20110320020231) do
   end
 
   add_index "deals", ["company_id"], :name => "index_deals_on_company_id"
-  add_index "deals", ["external_id"], :name => "index_deals_on_external_id"
   add_index "deals", ["subscription_id"], :name => "index_deals_on_subscription_id"
 
   create_table "email_types", :force => true do |t|
@@ -64,10 +62,13 @@ ActiveRecord::Schema.define(:version => 20110320020231) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "subject"
+    t.string   "fromname"
+    t.date     "recieved"
+    t.text     "content"
   end
 
   add_index "emails", ["deal_id"], :name => "index_emails_on_deal_id"
-  add_index "emails", ["external_id"], :name => "index_emails_on_external_id"
+  add_index "emails", ["external_id"], :name => "index_emails_on_external_id", :unique => true
   add_index "emails", ["subscription_id"], :name => "index_emails_on_subscription_id"
   add_index "emails", ["user_id"], :name => "index_emails_on_user_id"
 
@@ -83,6 +84,12 @@ ActiveRecord::Schema.define(:version => 20110320020231) do
 
   add_index "locations", ["company_id"], :name => "index_locations_on_company_id"
 
+  create_table "subscription_statuses", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "subscription_types", :force => true do |t|
     t.string   "name"
     t.datetime "created_at"
@@ -90,25 +97,21 @@ ActiveRecord::Schema.define(:version => 20110320020231) do
   end
 
   create_table "subscriptions", :force => true do |t|
-    t.string   "external_id",          :null => false
-    t.string   "url",                  :null => false
-    t.string   "title",                :null => false
+    t.string   "url"
+    t.string   "title"
     t.integer  "company_id",           :null => false
     t.integer  "subscription_type_id", :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "email_domain"
+    t.string   "domain"
+    t.string   "form_data"
+    t.string   "submit_method"
   end
 
   add_index "subscriptions", ["company_id"], :name => "index_subscriptions_on_company_id"
-  add_index "subscriptions", ["external_id"], :name => "index_subscriptions_on_external_id"
-
-  create_table "subscriptions_users", :id => false, :force => true do |t|
-    t.integer "subscription_id"
-    t.integer "user_id"
-  end
-
-  add_index "subscriptions_users", ["subscription_id"], :name => "index_subscriptions_users_on_subscription_id"
-  add_index "subscriptions_users", ["user_id"], :name => "index_subscriptions_users_on_user_id"
+  add_index "subscriptions", ["domain"], :name => "index_subscriptions_on_domain"
+  add_index "subscriptions", ["email_domain"], :name => "index_subscriptions_on_email_domain", :unique => true
 
   create_table "taggings", :force => true do |t|
     t.integer  "tag_id"
@@ -126,6 +129,17 @@ ActiveRecord::Schema.define(:version => 20110320020231) do
   create_table "tags", :force => true do |t|
     t.string "name"
   end
+
+  create_table "user_subscriptions", :force => true do |t|
+    t.integer  "user_id",                :null => false
+    t.integer  "subscription_id",        :null => false
+    t.integer  "subscription_status_id", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "user_subscriptions", ["subscription_id"], :name => "index_user_subscriptions_on_subscription_id"
+  add_index "user_subscriptions", ["user_id"], :name => "index_user_subscriptions_on_user_id"
 
   create_table "users", :force => true do |t|
     t.string   "email",                               :default => "",     :null => false
