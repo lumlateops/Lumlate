@@ -1,19 +1,24 @@
 class Subscription < ActiveRecord::Base
   belongs_to :company
-  has_and_belongs_to_many :users
+  
+  has_many :users, :through => :user_subscriptions
+  has_many :user_subscriptions
+  
   belongs_to :subscription_type
   has_many :emails
-  has_many :deals, :dependent => :nullify
+  has_many :deals
 
   validates_associated :company
   validates_associated :subscription_type
-  validates :external_id, :presence => true,
-    :uniqueness => true
+
   validates :url, :presence => true,
     :uniqueness => true
+
   validates :title, :presence => true,
     :uniqueness => true
 
+  validates :email_domain, :uniqueness => true
+  
   acts_as_taggable_on :tags
 
   def slug

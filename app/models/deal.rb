@@ -10,9 +10,6 @@ class Deal < ActiveRecord::Base
   validates_associated :company
   validates_associated :deal_type
 
-  validates :external_id, :presence => true,
-                 :uniqueness => true
-
   validates :title, :presence => true
   acts_as_taggable_on :tags
 

@@ -1,11 +1,11 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-one:
-  domain: MyString
+macys:
+  domain: http://www.macys.com
   image: MyString
-  name: MyString
+  name: Macy's
 
-two:
-  domain: MyString
+somecompany:
+  domain: http://some.com
   image: MyString
-  name: MyString
+  name: Some Company

@@ -1,10 +1,7 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-Other:
-  name: Other
+one:
+  name: MyString
 
-Active:
-  name: Active
-
-Expired:
-  name: Expired
+two:
+  name: MyString
