@@ -12,4 +12,9 @@ class Company < ActiveRecord::Base
                    :uniqueness => true
 
   acts_as_taggable_on :tags
+ 
+  def subct
+    subscriptions.count
+  end
+
 end

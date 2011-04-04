@@ -4,7 +4,7 @@
 
 Company:
   fields:
-    default: domain, name, image, tag_list
+    default: domain, name, subct, image, tag_list
     form: domain, name, image, tag_list
   order_by: 
   relationships: deals, locations, subscriptions
