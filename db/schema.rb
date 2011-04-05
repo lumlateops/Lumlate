@@ -132,7 +132,6 @@ ActiveRecord::Schema.define(:version => 20110405062036) do
   end
 
   add_index "taggings", ["tag_id"], :name => "index_taggings_on_tag_id"
-  add_index "taggings", ["taggable_id", "taggable_type", "context"], :name => "index_taggings_on_taggable_id_and_taggable_type_and_context"
 
   create_table "tags", :force => true do |t|
     t.string "name"
@@ -150,20 +149,21 @@ ActiveRecord::Schema.define(:version => 20110405062036) do
   add_index "user_subscriptions", ["user_id"], :name => "index_user_subscriptions_on_user_id"
 
   create_table "users", :force => true do |t|
-    t.string   "email",                               :default => "",     :null => false
-    t.string   "encrypted_password",   :limit => 128, :default => "",     :null => false
+    t.string   "email",                :default => "",     :null => false
+    t.string   "encrypted_password",   :default => ""
+    t.string   "password_salt",        :default => ""
     t.string   "reset_password_token"
     t.string   "remember_token"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                       :default => 0
+    t.integer  "sign_in_count",        :default => 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.string   "username",                                                :null => false
+    t.string   "username",                                 :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "role",                                :default => "none"
+    t.string   "role",                 :default => "none"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
