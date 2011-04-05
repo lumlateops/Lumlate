@@ -137,21 +137,11 @@ Devise.setup do |config|
   # allows you to setup OAuth, using http://github.com/roman/warden_oauth
   #
 
-  config.oauth :facebook, '205789726106778', 'eddd2aaf1c145e81bb51ce27d039cb71',
+  config.oauth :facebook, '208563932487697', '94d5fa5c0921f40a7f34d41917ed7b4a',
     :site => 'https://graph.facebook.com/',
     :authorize_path => '/oauth/authorize',
     :access_token_path => '/oauth/access_token',
     :scope => %w(email)
-
-#
-#  config.warden do |manager|
-#    manager.oauth(:facebook) do |facebook|
-#       facebook.consumer_secret = 'eddd2aaf1c145e81bb51ce27d039cb71'
-#       facebook.consumer_key  = '912f0ac054ad0374e932395da2ea7625'
-#       facebook.options :site => 'http://facebook.com'
-#     end
-#     manager.default_strategies(:scope => :user).unshift :facebook_oauth
-#  end
 
   # config.warden do |manager|
   #   manager.oauth(:twitter) do |twitter|
