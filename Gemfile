@@ -6,8 +6,8 @@ gem 'rails', '3.0.4'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'sqlite3'
-gem 'devise', '1.2.1'
-gem 'devise_invitable', :git => "git://github.com/scambra/devise_invitable.git"
+gem 'devise', :git => "https://github.com/plataformatec/devise.git", :branch => 'v1.2.oauth'
+#gem 'devise_invitable', :git => "git://github.com/scambra/devise_invitable.git"  #, '0.4.rc5'
 gem 'typus', :git => 'https://github.com/fesplugas/typus.git', :branch => 'wip/devise'
 gem 'oauth2', '0.2.0'
 gem 'jquery-rails'
