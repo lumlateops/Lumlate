@@ -52,14 +52,14 @@ Devise.setup do |config|
   # Time interval where the invitation token is valid (default: 0).
   # If invite_for is 0 or nil, the invitation will never expire.
   # config.invite_for = 2.weeks
-  
+
   # ==> Configuration for :confirmable
   # The time you want to give your user to confirm his account. During this time
   # he will be able to access your application without confirming. Default is nil.
-  # When confirm_within is zero, the user won't be able to sign in without confirming. 
-  # You can use this to let your user access some features of your application 
-  # without confirming the account, but blocking it after a certain period 
-  # (ie 2 days). 
+  # When confirm_within is zero, the user won't be able to sign in without confirming.
+  # You can use this to let your user access some features of your application
+  # without confirming the account, but blocking it after a certain period
+  # (ie 2 days).
   config.confirm_within = 2.days
 
   # ==> Configuration for :rememberable
@@ -118,7 +118,7 @@ Devise.setup do |config|
   # devise role declared in your routes.
   # config.default_scope = :user
 
-  # Configure sign_out behavior. 
+  # Configure sign_out behavior.
   # By default sign_out is scoped (i.e. /users/sign_out affects only :user scope).
   # In case of sign_out_all_scopes set to true any logout action will sign out all active scopes.
   # config.sign_out_all_scopes = false
@@ -136,6 +136,22 @@ Devise.setup do |config|
   # you can configure them inside the config.warden block. The example below
   # allows you to setup OAuth, using http://github.com/roman/warden_oauth
   #
+
+#config.oauth :facebook, '205789726106778', 'eddd2aaf1c145e81bb51ce27d039cb71',
+ # :site => 'https://graph.facebook.com/',
+ # :authorize_path => '/oauth/authorize',
+ # :access_token_path => '/oauth/access_token',
+ # :scope => %w(email)
+
+  config.warden do |manager|
+    manager.oauth(:facebook) do |facebook|
+       facebook.consumer_secret = 'eddd2aaf1c145e81bb51ce27d039cb71'
+       facebook.consumer_key  = '912f0ac054ad0374e932395da2ea7625'
+       facebook.options :site => 'http://facebook.com'
+     end
+     manager.default_strategies(:scope => :user).unshift :facebook_oauth
+  end
+
   # config.warden do |manager|
   #   manager.oauth(:twitter) do |twitter|
   #     twitter.consumer_secret = <YOUR CONSUMER SECRET>
@@ -144,5 +160,6 @@ Devise.setup do |config|
   #   end
   #   manager.default_strategies(:scope => :user).unshift :twitter_oauth
   # end
-  
+
 end
+

@@ -6,9 +6,10 @@ gem 'rails', '3.0.4'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'sqlite3'
-gem 'devise'
-gem 'devise_invitable'
+gem 'devise', '1.2.1'
+gem 'devise_invitable', :git => "git://github.com/scambra/devise_invitable.git"
 gem 'typus', :git => 'https://github.com/fesplugas/typus.git', :branch => 'wip/devise'
+gem 'oauth2', '0.2.0'
 gem 'jquery-rails'
 gem 'formtastic'
 gem 'acts-as-taggable-on'
@@ -39,3 +40,8 @@ gem 'capistrano'
 # group :development, :test do
 #   gem 'webrat'
 # end
+
+ group :development do
+   gem 'mongrel'
+ end
+
