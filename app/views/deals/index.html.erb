@@ -69,10 +69,19 @@
         Tag list: <%= deal_email.deal.tag_list.join(',') %><br />
         <div class="rate_and_like" id="rate_and_like_<%= deal_email.deal.id %>">
           <div id="deal_like">
-            <fb:like href="<%= deals_path %>" layout="button_count" show_faces="false" width="450" font=""></fb:like>
+          <fb:like href="<%= deals_path %>" layout="button_count" show_faces="false" width="450" font=""></fb:like>
           </div>
           <div id="deal_rate">
-            Rating: <strong id="deal_rating">5</strong>
+            <strong class="rating_title">Rating: </strong>
+            <div class="rating_stars" id="stars-wrapper_<%= deal_email.deal.id %>">
+              <select name="selrate">
+                <option value="1">Very poor</option>
+                <option value="2">Not that bad</option>
+                <option value="3">Average</option>
+                <option value="4" selected="selected">Good</option>
+                <option value="5">Perfect</option>
+              </select>
+            </div>
           </div>
         </div>
       </div>
@@ -170,7 +179,7 @@ ol#selectable_tags {
 }
 
 #deal_rate {
-  width:70px;
+  width:160px;
   height:20px;
   padding: 5px 0px 5px 5px;
   float: left;
@@ -182,6 +191,15 @@ ol#selectable_tags {
   overflow: hidden;
   padding:  4px 5px 3px 0px;
   float:left;
+}
+
+.rating_title {
+  float: left;
+  margin-right: 10px;
+}
+
+.rating_stars {
+  float: left;
 }
 
 </style>
@@ -201,6 +219,14 @@ $(document).ready(function(){
 
   <!-- Selectable logic for companies -->
     $( "#selectable_companies" ).selectable();
+
+  <!-- Feed deal rating logic >
+
+    <% @deal_emails.each do |deal_email| %>
+      $("#stars-wrapper_<%= deal_email.id %>").stars({
+        inputType: "select"
+      });
+    <% end %>
 
   <!-- Left Column max_deal/min_deal filter logic -->
 
