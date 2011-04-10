@@ -1,6 +1,30 @@
 <div id="deals-feed" class="span-24 last">
 
-  <div id="left_column" style="border:1px solid red;">
+  <div class="top_part" style="width:100%; height:auto; overflow: hidden; border: 1px solid red;">
+    <h2>Right Column: FILTERS</h1>
+    <div id="right_column_filters" style="border:1px solid blue;">
+      <div style="border:1px solid green;">
+        <h3>By expiry date filter:</h3>
+        <div style="width: 100px; height: auto;">
+          <div id="by_expiry_date_filter"style="width: 50px; height: 20px; border:1px solid blue">by expiry</div>
+        </div>
+      </div>
+      <div style="border:1px solid green;">
+        <h3>Rating filter:</h3>
+        <div style="width: 100px; height: auto;">
+          <div id="rating_filter"style="width: 50px; height: 20px; border:1px solid blue">by rating</div>
+        </div>
+      </div>
+      <div style="border:1px solid green;">
+        <h3>Max and Min value filter:</h3>
+        <div style="width: 100px; height: auto;">
+          <div id="max_min_filter"style="width: 50px; height: 20px; border:1px solid blue">by max</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="left_filters" style="width:30%; height:auto; float: left; overflow: hidden; border: 1px solid blue;">
     <h2>Left Column: FILTERS</h1>
     <div id="left_column_filters" style="border:1px solid blue;">
       <div id="max_min_value_filter" style="border:1px solid green;">
@@ -50,46 +74,24 @@
     </div>
   </div>
 
-  <div id="right_column" style="border:1px solid green;">
-    <h2>Right Column: FILTERS</h1>
-    <div id="right_column_filters" style="border:1px solid blue;">
-      <div style="border:1px solid green;">
-        <h3>By expiry date filter:</h3>
-        <div style="width: 100px; height: auto;">
-          <div id="by_expiry_date_filter"style="width: 50px; height: 20px; border:1px solid blue">by expiry</div>
-        </div>
+  <div class="deals_list" style="width:69%; height:auto; float:right; overflow: hidden; border: 1px solid green;">
+    <% @deal_emails.each do |deal_email| %>
+      <h3 class="ui-accordion-header ui-helper-reset ui-state-default ui-corner-all">
+        <a href="#"><%= deal_email.subject %></a>
+      </h3>
+      <div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom">
+        <% if deal_email.deal %>
+          Will expire at:<%= deal_email.deal.expiry %><br />
+          Tagged to: <%= deal_email.deal.tag_list %><br />
+          Deal is from: <%= deal_email.deal.company.name %> <br/>
+          Deal Type: <%= deal_email.deal.deal_type.name %>
+        <% end %>
+          Sent at: <%= deal_email.sent %><br/>
+          From: <%= deal_email.from %> <br/>
+          To: <%= deal_email.to %> <br/>
       </div>
-      <div style="border:1px solid green;">
-        <h3>Rating filter:</h3>
-        <div style="width: 100px; height: auto;">
-          <div id="rating_filter"style="width: 50px; height: 20px; border:1px solid blue">by rating</div>
-        </div>
-      </div>
-      <div style="border:1px solid green;">
-        <h3>Max and Min value filter:</h3>
-        <div style="width: 100px; height: auto;">
-          <div id="max_min_filter"style="width: 50px; height: 20px; border:1px solid blue">by max</div>
-        </div>
-      </div>
-    </div>
+    <% end %>
   </div>
-
-  <% @deal_emails.each do |deal_email| %>
-    <h3 class="ui-accordion-header ui-helper-reset ui-state-default ui-corner-all">
-      <a href="#"><%= deal_email.subject %></a>
-    </h3>
-    <div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom">
-      <% if deal_email.deal %>
-        Will expire at:<%= deal_email.deal.expiry %><br />
-        Tagged to: <%= deal_email.deal.tag_list %><br />
-        Deal is from: <%= deal_email.deal.company.name %> <br/>
-        Deal Type: <%= deal_email.deal.deal_type.name %>
-      <% end %>
-        Sent at: <%= deal_email.sent %><br/>
-        From: <%= deal_email.from %> <br/>
-        To: <%= deal_email.to %> <br/>
-    </div>
-  <% end %>
 </div>
 
 <style type="text/css">
