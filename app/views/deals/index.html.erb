@@ -26,7 +26,9 @@
               <li class="other_tags"><%= tag %></li>
             <% end %>
           </ol>
-          <div id="more_tags">more tags</div>
+          <% if @other_tags.present? %>
+            <div id="more_tags">more tags</div>
+          <% end %>
         </div>
       </div>
       <div id="companies_filter" style="border:1px solid blue;">
@@ -40,7 +42,9 @@
               <li class="other_companies"><%= c.name %></li>
             <% end %>
           </ol>
-          <div id="more_companies">more companies</div>
+          <% if @other_companies.present? %>
+            <div id="more_companies">more companies</div>
+          <% end %>
         </div>
       </div>
     </div>
@@ -81,16 +85,21 @@
         Deal is from: <%= deal_email.deal.company.name %> <br/>
         Deal Type: <%= deal_email.deal.deal_type.name %>
       <% end %>
-        Sent at:<%  deal_email.sent %><br/>
-        From: <%  deal_email.from %> <br/>
-        To: <% deal_email.to %> <br/>
+        Sent at: <%= deal_email.sent %><br/>
+        From: <%= deal_email.from %> <br/>
+        To: <%= deal_email.to %> <br/>
     </div>
   <% end %>
 </div>
 
 <style type="text/css">
+#Deals {
+  height: auto;
+  overflow: hidden;
+}
+
 ol {
-  text-style-type: none;
+  list-style-type: none;
 }
 
 .ui-selected {
