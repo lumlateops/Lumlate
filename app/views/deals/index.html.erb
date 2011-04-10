@@ -1,5 +1,75 @@
 <div id="deals-feed" class="span-24 last">
 
+  <div id="left_column" style="border:1px solid red;">
+    <h2>Left Column: FILTERS</h1>
+    <div id="left_column_filters" style="border:1px solid blue;">
+      <div id="max_min_value_filter" style="border:1px solid green;">
+        <h3>Max and Min value filter:</h3>
+        <div style="width: 100px; height: auto;">
+          <div id="deal_value_filter"style="width: 50px; height: 20px; border:1px solid blue">max</div>
+        </div>
+      </div>
+      <div id="calendar_filter" style="border:1px solid blue;">
+        <h3>Last expiry date filter:</h3>
+        <div style="width: 100px; height: auto;">
+          <p>Date: <input type="text" id="deal_expiry_datepicker"></p>
+        </div>
+      </div>
+      <div id="tags_filter" style="border:1px solid green;">
+        <h3>Tags filter:</h3>
+        <div style="width: 100px; height: auto;">
+          <ol id="selectable_tags">
+            <% @first_ten_tags.each do |tag| %>
+              <li class="first_ten_tags"><%= tag %></li>
+            <% end %>
+            <% @other_tags.each do |tag| %>
+              <li class="other_tags"><%= tag %></li>
+            <% end %>
+          </ol>
+          <div id="more_tags">more tags</div>
+        </div>
+      </div>
+      <div id="companies_filter" style="border:1px solid blue;">
+        <h3>Companies filter:</h3>
+        <div style="width: 100px; height: auto;">
+          <ol id="selectable_companies">
+            <% @top_companies.each do |c| %>
+              <li class="top_companies"><%= c.name %></li>
+            <% end %>
+            <% @other_companies.each do |c| %>
+              <li class="other_companies"><%= c.name %></li>
+            <% end %>
+          </ol>
+          <div id="more_companies">more companies</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="right_column" style="border:1px solid green;">
+    <h2>Right Column: FILTERS</h1>
+    <div id="right_column_filters" style="border:1px solid blue;">
+      <div style="border:1px solid green;">
+        <h3>By expiry date filter:</h3>
+        <div style="width: 100px; height: auto;">
+          <div id="by_expiry_date_filter"style="width: 50px; height: 20px; border:1px solid blue">by expiry</div>
+        </div>
+      </div>
+      <div style="border:1px solid green;">
+        <h3>Rating filter:</h3>
+        <div style="width: 100px; height: auto;">
+          <div id="rating_filter"style="width: 50px; height: 20px; border:1px solid blue">by rating</div>
+        </div>
+      </div>
+      <div style="border:1px solid green;">
+        <h3>Max and Min value filter:</h3>
+        <div style="width: 100px; height: auto;">
+          <div id="max_min_filter"style="width: 50px; height: 20px; border:1px solid blue">by max</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <% @deal_emails.each do |deal_email| %>
     <h3 class="ui-accordion-header ui-helper-reset ui-state-default ui-corner-all">
       <a href="#"><%= deal_email.subject %></a>
@@ -14,7 +84,84 @@
         Sent at:<%  deal_email.sent %><br/>
         From: <%  deal_email.from %> <br/>
         To: <% deal_email.to %> <br/>
-        
     </div>
   <% end %>
 </div>
+
+<style type="text/css">
+ol {
+  text-style-type: none;
+}
+
+.ui-selected {
+  background-color: yellow;
+}
+
+.other_companies, .other_tags {
+  display: none;
+}
+
+#companies_filter li, tag_filter li {
+  width: 100px;
+  height 20px;
+}
+</style>
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+
+  <!-- Left Column Last ExpiryDate Datapicker -->
+
+    $( "#deal_expiry_datepicker" ).datepicker();
+
+  <!-- Selectable logic for tags -->
+    $( "#selectable_tags" ).selectable();
+
+  <!-- Selectable logic for companies -->
+    $( "#selectable_companies" ).selectable();
+
+  <!-- Left Column max_deal/min_deal filter logic -->
+
+  $('#deal_value_filter').click(function() {
+    current_text = $(this).text();
+    if(current_text=='max'){
+      $(this).text("min");
+    }
+    else {
+      $(this).text("max");
+    }
+  });
+
+  <!-- Left Column companies filter logic -->
+
+  $('#more_tags').click(function() {
+    current_text = $(this).text();
+    if(current_text=='more tags'){
+      $(this).text("hide other tags");
+      $('.other_tags').fadeIn(1000);
+    }
+    else {
+      $(this).text("more tags");
+      $('.other_tags').fadeOut(1000);
+    }
+  });
+
+  <!-- Left Column companies filter logic -->
+
+  $('#more_companies').click(function() {
+    current_text = $(this).text();
+    if(current_text=='more companies'){
+      $(this).text("hide other companies");
+      $('.other_companies').fadeIn(1000);
+    }
+    else {
+      $(this).text("more companies");
+      $('.other_companies').fadeOut(1000);
+    }
+  });
+
+});
+
+</script>
+

@@ -10,12 +10,55 @@ class User < ActiveRecord::Base
   attr_accessor :login
   has_many :subscriptions, :through => :user_subscriptions
   has_many :user_subscriptions, :dependent => :destroy
+  has_many :deals, :through => :emails
   has_many :emails, :dependent => :destroy
 
   validates :username, :presence => true, :uniqueness => true
 
   def to_label
     username
+  end
+
+  def tags
+    tags = []
+    deals.map{ |d| d.tag_list.each { |t| tags << t } }
+    tags.uniq
+  end
+
+  def deals_by_max_value
+    deals.by_max_value
+  end
+
+  def deals_by_min_value
+    deals.by_min_value
+  end
+
+  def deal_with_max_value
+    deals.by_max_value.first
+  end
+
+  def deal_with_min_value
+    deals.by_min_value.first
+  end
+
+  def deals_by_expiry_date
+    deals.by_expiry_date
+  end
+
+  def deals_with_expiry_date(expiry_date)
+    deals.with_expiry_date(expiry_date)
+  end
+
+  def deals_by_companies(companies)
+    deals.find_all_by_company_id(companies)
+  end
+
+  def deals_tagged_with(tag_list)
+    deals.tagged_with(tag_list, :any => true)
+  end
+
+  def deals_by_rating
+    # There we will add method later
   end
 
   def self.find_for_facebook_oauth(access_token, signed_in_resource=nil)

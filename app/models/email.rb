@@ -22,3 +22,4 @@ class Email < ActiveRecord::Base
     subject
   end
 end
+
