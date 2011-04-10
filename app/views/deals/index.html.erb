@@ -59,7 +59,7 @@
       <h3 class="ui-accordion-header ui-helper-reset ui-state-default ui-corner-all">
         <a href="#"><%= deal_email.subject %></a>
       </h3>
-      <div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom">
+      <div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom deal_info">
         Sent at: <%= deal_email.sent %><br />
         <%= deal_email.deal.title %><br />
         <strong>$</strong> <%= deal_email.deal.maxvalue %><br />
@@ -67,8 +67,14 @@
         Company: <%= deal_email.deal.company.name %><br />
         <%= image_tag(deal_email.deal.company.image) %><br />
         Tag list: <%= deal_email.deal.tag_list.join(',') %><br />
-        <script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script>
-        <fb:like href="<%= deals_path %>" layout="button_count" show_faces="false" width="450" font=""></fb:like>
+        <div class="rate_and_like" id="rate_and_like_<%= deal_email.deal.id %>">
+          <div id="deal_like">
+            <fb:like href="<%= deals_path %>" layout="button_count" show_faces="false" width="450" font=""></fb:like>
+          </div>
+          <div id="deal_rate">
+            Rating: <strong id="deal_rating">5</strong>
+          </div>
+        </div>
       </div>
     <% end %>
   </div>
@@ -142,7 +148,45 @@ ol#selectable_tags {
 #deal_expiry_datepicker {
   margin-left: 10px;
 }
+
+.deals_list h3 {
+  padding-left: 10px;
+}
+
+.deal_info {
+  padding: 10px 0px 0px 10px;
+}
+
+.rate_and_like {
+  height:30px;
+  oveflow:hidden;
+  width: auto;
+  margin-bottom: 5px;
+  padding-top: 5px;
+}
+
+#deal_rating {
+  margin-right: 10px;
+}
+
+#deal_rate {
+  width:70px;
+  height:20px;
+  padding: 5px 0px 5px 5px;
+  float: left;
+}
+
+#deal_like {
+  width:100px;
+  height: 20px;
+  overflow: hidden;
+  padding:  4px 5px 3px 0px;
+  float:left;
+}
+
 </style>
+
+<script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script>
 
 <script type="text/javascript">
 
