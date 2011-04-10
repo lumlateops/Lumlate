@@ -1,47 +1,30 @@
 <div id="deals-feed" class="span-24 last">
 
-  <div class="top_part" style="width:100%; height:auto; overflow: hidden; border: 1px solid red;">
-    <h2>Right Column: FILTERS</h1>
-    <div id="right_column_filters" style="border:1px solid blue;">
-      <div style="border:1px solid green;">
-        <h3>By expiry date filter:</h3>
-        <div style="width: 100px; height: auto;">
-          <div id="by_expiry_date_filter"style="width: 50px; height: 20px; border:1px solid blue">by expiry</div>
-        </div>
-      </div>
-      <div style="border:1px solid green;">
-        <h3>Rating filter:</h3>
-        <div style="width: 100px; height: auto;">
-          <div id="rating_filter"style="width: 50px; height: 20px; border:1px solid blue">by rating</div>
-        </div>
-      </div>
-      <div style="border:1px solid green;">
-        <h3>Max and Min value filter:</h3>
-        <div style="width: 100px; height: auto;">
-          <div id="max_min_filter"style="width: 50px; height: 20px; border:1px solid blue">by max</div>
-        </div>
-      </div>
+  <div class="top_part" style="width:100%; height:auto; overflow: hidden; margin-bottom:10px;">
+    <div class="deals_sort_by" style="float:right; margin-right:45px">
+      <strong>Sort deals by:</strong>
+      <select id="deals_sort_by" name="deals_sort_by">
+        <option value="expiry" SELECTED>expiry</option>
+        <option value="rating">rating</option>
+        <option value="max_deal">max deal</option>
+      </select>
     </div>
   </div>
 
-  <div class="left_filters" style="width:30%; height:auto; float: left; overflow: hidden; border: 1px solid blue;">
-    <h2>Left Column: FILTERS</h1>
-    <div id="left_column_filters" style="border:1px solid blue;">
-      <div id="max_min_value_filter" style="border:1px solid green;">
-        <h3>Max and Min value filter:</h3>
-        <div style="width: 100px; height: auto;">
-          <div id="deal_value_filter"style="width: 50px; height: 20px; border:1px solid blue">max</div>
-        </div>
+  <div class="left_filters" style="width:18%; height:auto; float: left; overflow: hidden;">
+    <div>
+      <h3>Filters</h3>
+      <div>
+        <h5>by max/min deal:</h5>
+        <span class="deal_value" id="deal_max_filter">max</span>|
+        <span class="deal_value" id="deal_min_filter">min</span>
       </div>
-      <div id="calendar_filter" style="border:1px solid blue;">
-        <h3>Last expiry date filter:</h3>
-        <div style="width: 100px; height: auto;">
-          <p>Date: <input type="text" id="deal_expiry_datepicker"></p>
-        </div>
+      <div>
+        <h5>with expiry date:</h5>
+        <input type="text" id="deal_expiry_datepicker" value="Select date..." size="10"></p>
       </div>
-      <div id="tags_filter" style="border:1px solid green;">
-        <h3>Tags filter:</h3>
-        <div style="width: 100px; height: auto;">
+      <div>
+        <h5>by tags:</h5>
           <ol id="selectable_tags">
             <% @first_ten_tags.each do |tag| %>
               <li class="first_ten_tags"><%= tag %></li>
@@ -53,11 +36,9 @@
           <% if @other_tags.present? %>
             <div id="more_tags">more tags</div>
           <% end %>
-        </div>
       </div>
-      <div id="companies_filter" style="border:1px solid blue;">
-        <h3>Companies filter:</h3>
-        <div style="width: 100px; height: auto;">
+      <div>
+        <h5>by companies:</h5>
           <ol id="selectable_companies">
             <% @top_companies.each do |c| %>
               <li class="top_companies"><%= c.name %></li>
@@ -69,12 +50,11 @@
           <% if @other_companies.present? %>
             <div id="more_companies">more companies</div>
           <% end %>
-        </div>
       </div>
     </div>
   </div>
 
-  <div class="deals_list" style="width:69%; height:auto; float:right; overflow: hidden; border: 1px solid green;">
+  <div class="deals_list" style="width:82%; height:auto; float:right; overflow: hidden;">
     <% @deal_emails.each do |deal_email| %>
       <h3 class="ui-accordion-header ui-helper-reset ui-state-default ui-corner-all">
         <a href="#"><%= deal_email.subject %></a>
@@ -102,6 +82,7 @@
 
 ol {
   list-style-type: none;
+  padding-left:10px;
 }
 
 .ui-selected {
@@ -112,9 +93,54 @@ ol {
   display: none;
 }
 
+.left_filters li {
+  cursor: pointer;
+}
+
 #companies_filter li, tag_filter li {
   width: 100px;
   height 20px;
+}
+
+.deals_list h3.ui-accordion-header, .deals_list div.ui-accordion-content {
+  width: 735px;
+}
+
+.left_filters h5 {
+  margin-bottom: 5px;
+}
+
+ol#selectable_tags {
+  margin-bottom: 5px;
+}
+
+.left_filters div {
+  margin-bottom:10px;
+  margin-left:10px;
+}
+
+#deals_sort_by {
+  margin-left:10px;
+}
+
+#more_companies, #more_tags {
+  font-weight: bold;
+}
+
+.deal_value {
+  margin-left: 10px;
+}
+
+.deal_value span {
+  width: 50px; height: 20px;
+}
+
+#deal_max_filter {
+  margin-right: 15px;
+}
+
+#deal_expiry_datepicker {
+  margin-left: 10px;
 }
 </style>
 
