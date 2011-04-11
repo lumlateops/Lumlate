@@ -14,6 +14,7 @@ class User < ActiveRecord::Base
   has_many :emails, :dependent => :destroy
 
   validates :username, :presence => true, :uniqueness => true
+  validates :username, :presence => true, :uniqueness => true, :length => { :maximum => 10, :minimum => 4 }
 
   def to_label
     username

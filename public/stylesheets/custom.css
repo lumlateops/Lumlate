@@ -1,0 +1,7 @@
+/* Username and Email Validations */
+
+.field_with_errors label.message {
+  margin-left: 15px;
+  color: red;
+}
+

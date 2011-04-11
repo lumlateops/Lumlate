@@ -4,6 +4,7 @@ gem 'rails', '3.0.4'
 
 gem 'devise', :git => 'https://github.com/plataformatec/devise.git', :branch => 'v1.2.oauth'
 gem 'typus', :git => 'https://github.com/fesplugas/typus.git', :branch => 'wip/devise'
+gem 'client_side_validations', '3.0.2'
 gem 'oauth2', '0.2.0'
 gem 'jquery-rails', '0.2.7'
 gem 'formtastic', '1.2.3'
