@@ -58,6 +58,9 @@
   <div class="deals_list" style="width:82%; height:auto; float:right; overflow: hidden;">
     <%= render :partial => 'form', :collection => @deal_emails, :as => :deal_email %>
   </div>
+
+  <!-- This is the hidden container for updating stars ui between ajax sort requests -->
+  <div class="stars_positions" style="display: none;"></div>
 </div>
 
 <!-- <script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script> -->
@@ -78,11 +81,9 @@ $(document).ready(function(){
 
   <!-- Feed deal rating logic >
 
-    <% @deal_emails.each do |deal_email| %>
-      $("#stars-wrapper_<%= deal_email.id %>").stars({
-        inputType: "select"
-      });
-    <% end %>
+    $('.rating_stars').stars({
+      inputType: "select"
+    });
 
   <!-- Left Column max_deal/min_deal filter logic -->
 
@@ -130,27 +131,18 @@ $(document).ready(function(){
       $("select#deals_sort_by option:selected").each(function () {
         var str = $(this).text();
         if(str=='expiry'){
-        //  alert('rating');
           $.get("<%= deals_by_expiry_date_path %>");
-          return false;
         }
         else if(str=='max deal') {
-         // alert('max deal');
           data = { deals_by_value_filter: "max" }
           $.get("<%= deals_by_max_or_min_value_path %>", data);
-          return false;
         }
         else if(str=='min deal') {
-         // alert('min deal');
           data = { deals_by_value_filter: "min" }
           $.get("<%= deals_by_max_or_min_value_path %>", data);
-          return false;
         }
         else {
-        //  alert('rating');
-          data = { deals_by_value_filter: "max" }
-          $.get("<%= deals_by_max_or_min_value_path %>", data);
-          return false;
+          // we will add there get ajax request for rating once it will be done
         }
       });
     }).change();
