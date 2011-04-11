@@ -13,8 +13,6 @@ class Deal < ActiveRecord::Base
 
   acts_as_taggable_on :tags
 
-  scope :by_max_value, order('maxvalue DESC')
-  scope :by_min_value, order('maxvalue ASC')
   scope :by_expiry_date, order('expiry ASC')
   scope :with_expiry_date, lambda { |expiry_date| where("expiry >= ? AND expiry <= ?", expiry_date.midnight, expiry_date.midnight + 1.day) }
 

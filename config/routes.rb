@@ -20,7 +20,6 @@ Lumlate::Application.routes.draw do
   resources :deals
 
   match 'deals_by_max_or_min_value' => 'deals#deals_by_max_or_min_value'
-  match 'deal_with_max_or_min_value' => 'deals#deal_with_max_or_min_value'
   match 'deals_by_expiry_date' => 'deals#deals_by_expiry_date'
   match 'deals_with_last_expiry_date' => 'deals#deals_with_last_expiry_date'
   match 'deals_by_companies' => 'deals#deals_by_companies'

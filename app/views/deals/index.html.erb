@@ -5,8 +5,9 @@
       <strong>Sort deals by:</strong>
       <select id="deals_sort_by" name="deals_sort_by">
         <option value="expiry" SELECTED>expiry</option>
-        <option value="rating">rating</option>
         <option value="max_deal">max deal</option>
+        <option value="min_deal">min deal</option>
+        <option value="rating">rating</option>
       </select>
     </div>
   </div>
@@ -55,39 +56,108 @@
   </div>
 
   <div class="deals_list" style="width:82%; height:auto; float:right; overflow: hidden;">
-    <% @deal_emails.each do |deal_email| %>
-      <h3 class="ui-accordion-header ui-helper-reset ui-state-default ui-corner-all">
-        <a href="#"><%= deal_email.subject %></a>
-      </h3>
-      <div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom deal_info">
-        Sent at: <%= deal_email.sent %><br />
-        <%= deal_email.deal.title %><br />
-        <strong>$</strong> <%= deal_email.deal.maxvalue %><br />
-        Will expiry <%= distance_of_time_in_words(Time.now, deal_email.deal.expiry) %><br />
-        Company: <%= deal_email.deal.company.name %><br />
-        <%= image_tag(deal_email.deal.company.image) %><br />
-        Tag list: <%= deal_email.deal.tag_list.join(',') %><br />
-        <div class="rate_and_like" id="rate_and_like_<%= deal_email.deal.id %>">
-          <div id="deal_like">
-          <fb:like href="<%= deals_path %>" layout="button_count" show_faces="false" width="450" font=""></fb:like>
-          </div>
-          <div id="deal_rate">
-            <strong class="rating_title">Rating: </strong>
-            <div class="rating_stars" id="stars-wrapper_<%= deal_email.deal.id %>">
-              <select name="selrate">
-                <option value="1">Very poor</option>
-                <option value="2">Not that bad</option>
-                <option value="3">Average</option>
-                <option value="4" selected="selected">Good</option>
-                <option value="5">Perfect</option>
-              </select>
-            </div>
-          </div>
-        </div>
-      </div>
-    <% end %>
+    <%= render :partial => 'form', :collection => @deal_emails, :as => :deal_email %>
   </div>
 </div>
+
+<!-- <script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script> -->
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+
+  <!-- Left Column Last ExpiryDate Datapicker -->
+
+    $( "#deal_expiry_datepicker" ).datepicker();
+
+  <!-- Selectable logic for tags -->
+    $( "#selectable_tags" ).selectable();
+
+  <!-- Selectable logic for companies -->
+    $( "#selectable_companies" ).selectable();
+
+  <!-- Feed deal rating logic >
+
+    <% @deal_emails.each do |deal_email| %>
+      $("#stars-wrapper_<%= deal_email.id %>").stars({
+        inputType: "select"
+      });
+    <% end %>
+
+  <!-- Left Column max_deal/min_deal filter logic -->
+
+  $('#deal_value_filter').click(function() {
+    current_text = $(this).text();
+    if(current_text=='max'){
+      $(this).text("min");
+    }
+    else {
+      $(this).text("max");
+    }
+  });
+
+  <!-- Left Column companies filter logic -->
+
+  $('#more_tags').click(function() {
+    current_text = $(this).text();
+    if(current_text=='more tags'){
+      $(this).text("hide other tags");
+      $('.other_tags').fadeIn(1000);
+    }
+    else {
+      $(this).text("more tags");
+      $('.other_tags').fadeOut(1000);
+    }
+  });
+
+  <!-- Left Column companies filter logic -->
+
+  $('#more_companies').click(function() {
+    current_text = $(this).text();
+    if(current_text=='more companies'){
+      $(this).text("hide other companies");
+      $('.other_companies').fadeIn(1000);
+    }
+    else {
+      $(this).text("more companies");
+      $('.other_companies').fadeOut(1000);
+    }
+  });
+
+  <!-- Top right sort_by_box logic -->
+
+    $("#deals_sort_by").change(function () {
+      $("select#deals_sort_by option:selected").each(function () {
+        var str = $(this).text();
+        if(str=='expiry'){
+        //  alert('rating');
+          $.get("<%= deals_by_expiry_date_path %>");
+          return false;
+        }
+        else if(str=='max deal') {
+         // alert('max deal');
+          data = { deals_by_value_filter: "max" }
+          $.get("<%= deals_by_max_or_min_value_path %>", data);
+          return false;
+        }
+        else if(str=='min deal') {
+         // alert('min deal');
+          data = { deals_by_value_filter: "min" }
+          $.get("<%= deals_by_max_or_min_value_path %>", data);
+          return false;
+        }
+        else {
+        //  alert('rating');
+          data = { deals_by_value_filter: "max" }
+          $.get("<%= deals_by_max_or_min_value_path %>", data);
+          return false;
+        }
+      });
+    }).change();
+
+});
+
+</script>
 
 <style type="text/css">
 #Deals {
@@ -203,72 +273,4 @@ ol#selectable_tags {
 }
 
 </style>
-
-<script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script>
-
-<script type="text/javascript">
-
-$(document).ready(function(){
-
-  <!-- Left Column Last ExpiryDate Datapicker -->
-
-    $( "#deal_expiry_datepicker" ).datepicker();
-
-  <!-- Selectable logic for tags -->
-    $( "#selectable_tags" ).selectable();
-
-  <!-- Selectable logic for companies -->
-    $( "#selectable_companies" ).selectable();
-
-  <!-- Feed deal rating logic >
-
-    <% @deal_emails.each do |deal_email| %>
-      $("#stars-wrapper_<%= deal_email.id %>").stars({
-        inputType: "select"
-      });
-    <% end %>
-
-  <!-- Left Column max_deal/min_deal filter logic -->
-
-  $('#deal_value_filter').click(function() {
-    current_text = $(this).text();
-    if(current_text=='max'){
-      $(this).text("min");
-    }
-    else {
-      $(this).text("max");
-    }
-  });
-
-  <!-- Left Column companies filter logic -->
-
-  $('#more_tags').click(function() {
-    current_text = $(this).text();
-    if(current_text=='more tags'){
-      $(this).text("hide other tags");
-      $('.other_tags').fadeIn(1000);
-    }
-    else {
-      $(this).text("more tags");
-      $('.other_tags').fadeOut(1000);
-    }
-  });
-
-  <!-- Left Column companies filter logic -->
-
-  $('#more_companies').click(function() {
-    current_text = $(this).text();
-    if(current_text=='more companies'){
-      $(this).text("hide other companies");
-      $('.other_companies').fadeIn(1000);
-    }
-    else {
-      $(this).text("more companies");
-      $('.other_companies').fadeOut(1000);
-    }
-  });
-
-});
-
-</script>
 

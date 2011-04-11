@@ -26,24 +26,16 @@ class User < ActiveRecord::Base
     tags.uniq
   end
 
-  def deals_by_max_value
-    deals.by_max_value
+  def deal_emails_by_max_value
+    emails.sort{ |a,b| b.deal.maxvalue <=> a.deal.maxvalue  }
   end
 
-  def deals_by_min_value
-    deals.by_min_value
+  def deal_emails_by_min_value
+    emails.sort{ |a,b| a.deal.maxvalue <=> b.deal.maxvalue  }
   end
 
-  def deal_with_max_value
-    deals.by_max_value.first
-  end
-
-  def deal_with_min_value
-    deals.by_min_value.first
-  end
-
-  def deals_by_expiry_date
-    deals.by_expiry_date
+  def deal_emails_by_expiry_date
+    emails.sort{ |a,b| a.deal.expiry <=> b.deal.expiry  }
   end
 
   def deals_with_expiry_date(expiry_date)
