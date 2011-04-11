@@ -12,7 +12,7 @@
   Tag list: <%= deal_email.deal.tag_list.join(',') %><br />
   <div class="rate_and_like" id="rate_and_like_<%= deal_email.deal.id %>">
     <div id="deal_like">
-    <!-- <fb:like href="<%= deals_path %>" layout="button_count" show_faces="false" width="450" font=""></fb:like> -->
+    <fb:like href="<%= deals_path %>" layout="button_count" show_faces="false" width="450" font=""></fb:like>
     </div>
     <div id="deal_rate">
       <strong class="rating_title">Rating: </strong>
@@ -28,4 +28,28 @@
     </div>
   </div>
 </div>
+
+<script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script>
+<script type="text/javascript">
+
+$(document).ready(function(){
+
+  <!-- Hide rating and like for deal_emails zone when DOM loaded -->
+
+    $('.rate_and_like').slideUp(1000);
+
+  <!-- Highlighting logic -->
+
+    $('.deal_info').hover(function() {
+        $(this).find('.rate_and_like').fadeIn(1000);
+        $(this).css("background","#DEF6F7");
+    },
+    function() {
+        $(this).find('.rate_and_like').fadeOut(1000);
+        $(this).css("background","white");
+    });
+
+});
+
+</script>
 

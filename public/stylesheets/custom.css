@@ -5,3 +5,117 @@
   color: red;
 }
 
+/* DEALS section styles */
+
+#Deals {
+  height: auto;
+  overflow: hidden;
+}
+
+#Deals ol {
+  list-style-type: none;
+  padding-left:10px;
+}
+
+#Deals .ui-selected {
+  background-color: yellow;
+}
+
+#Deals .other_companies, #Deals .other_tags {
+  display: none;
+}
+
+#Deals .left_filters li {
+  cursor: pointer;
+}
+
+#Deals #companies_filter li, #Deals tag_filter li {
+  width: 100px;
+  height 20px;
+}
+
+#Deals .deals_list h3.ui-accordion-header, #Deals .deals_list div.ui-accordion-content {
+  width: 735px;
+}
+
+#Deals .left_filters h5 {
+  margin-bottom: 5px;
+}
+
+#Deals ol#selectable_tags {
+  margin-bottom: 5px;
+}
+
+#Deals .left_filters div {
+  margin-bottom:10px;
+  margin-left:10px;
+}
+
+#Deals #deals_sort_by {
+  margin-left:10px;
+}
+
+#Deals #more_companies, #Deals #more_tags {
+  font-weight: bold;
+}
+
+#Deals .deal_value {
+  margin-left: 10px;
+}
+
+#Deals .deal_value span {
+  width: 50px; height: 20px;
+}
+
+#Deals #deal_max_filter {
+  margin-right: 15px;
+}
+
+#Deals #deal_expiry_datepicker {
+  margin-left: 10px;
+}
+
+#Deals .deals_list h3 {
+  padding-left: 10px;
+}
+
+#Deals .deal_info {
+  padding: 10px 0px 0px 10px;
+}
+
+#Deals .rate_and_like {
+  height:30px;
+  oveflow:hidden;
+  width: auto;
+  margin-bottom: 5px;
+  padding-top: 5px;
+}
+
+#Deals #deal_rating {
+  margin-right: 10px;
+}
+
+#Deals #deal_rate {
+  width:160px;
+  height:20px;
+  padding: 5px 0px 5px 5px;
+  float: left;
+}
+
+#Deals #deal_like {
+  width:100px;
+  height: 20px;
+  overflow: hidden;
+  padding:  4px 5px 3px 0px;
+  float:left;
+}
+
+#Deals .rating_title {
+  float: left;
+  margin-right: 10px;
+}
+
+#Deals .rating_stars {
+  float: left;
+}
+
