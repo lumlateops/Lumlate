@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
   has_many :emails, :dependent => :destroy
 
   validates :username, :presence => true, :uniqueness => true
-  validates :username, :presence => true, :uniqueness => true, :length => { :maximum => 10, :minimum => 4 }
+  validates :username, :presence => true, :uniqueness => true, :length => { :maximum => 14, :minimum => 4 }
 
   def to_label
     username
@@ -26,28 +26,32 @@ class User < ActiveRecord::Base
     tags.uniq
   end
 
+  def deal_emails
+    emails.select { |e| e.deal.present? }
+  end
+
   def deal_emails_by_max_value
-    emails.sort{ |a,b| b.deal.maxvalue <=> a.deal.maxvalue  }
+    deal_emails.sort { |a,b| b.deal.maxvalue <=> a.deal.maxvalue }
   end
 
   def deal_emails_by_min_value
-    emails.sort{ |a,b| a.deal.maxvalue <=> b.deal.maxvalue  }
+    deal_emails.sort{ |a,b| a.deal.maxvalue <=> b.deal.maxvalue  }
   end
 
   def deal_emails_by_expiry_date
-    emails.sort{ |a,b| a.deal.expiry <=> b.deal.expiry  }
+    deal_emails.sort{ |a,b| a.deal.expiry <=> b.deal.expiry  }
   end
 
-  def deals_with_expiry_date(expiry_date)
-    deals.with_expiry_date(expiry_date)
+  def deal_emails_with_expiry_date(expiry_date)
+    deal_emails.select{ |e| e.deal.expiry.to_date == (expiry_date) }
   end
 
   def deals_by_companies(companies)
-    deals.find_all_by_company_id(companies)
+    deal_emails.find_all_by_company_id(companies)
   end
 
   def deals_tagged_with(tag_list)
-    deals.tagged_with(tag_list, :any => true)
+    deal_emails.tagged_with(tag_list, :any => true)
   end
 
   def deals_by_rating

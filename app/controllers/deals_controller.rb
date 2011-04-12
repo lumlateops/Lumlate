@@ -49,9 +49,12 @@ class DealsController < ApplicationController
   end
 
   def deals_with_last_expiry_date
-    Rails.logger.info "----------#{params.inspect}"
     # Search deal with expiry date
-    @deal_emails = current_user.deals_with_expiry_date(params[:deals_with_expiry_date_filter])
+    @deal_emails = current_user.deal_emails_with_expiry_date(params[:deals_with_expiry_date_filter].to_date)
+
+    respond_to do |format|
+      format.js
+    end
   end
 
   def deals_by_companies

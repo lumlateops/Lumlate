@@ -22,7 +22,7 @@
       </div>
       <div>
         <h5>with expiry date:</h5>
-        <input type="text" id="deal_expiry_datepicker" value="Select date..." size="10"></p>
+        <input type="text" id="deal_expiry_datepicker" value="Select date..." size="10" />
       </div>
       <div>
         <h5>by tags:</h5>
@@ -57,6 +57,7 @@
 
   <div class="deals_list" style="width:82%; height:auto; float:right; overflow: hidden;">
     <%= render :partial => 'form', :collection => @deal_emails, :as => :deal_email %>
+    <h5 id="no_deals" style="display:none;">No records!</h5>
   </div>
 </div>
 
@@ -141,6 +142,25 @@ $(document).ready(function(){
         }
       });
     }).change();
+
+  <!-- Left Column Max/Min filters logic -->
+
+    $('#deal_max_filter').click(function() {
+      data = { deals_by_value_filter: "max" }
+      $.get("<%= deals_by_max_or_min_value_path %>", data);
+    });
+
+    $('#deal_min_filter').click(function() {
+      data = { deals_by_value_filter: "min" }
+      $.get("<%= deals_by_max_or_min_value_path %>", data);
+    });
+
+  <!-- Left Column Max/Min filters logic -->
+
+    $('#deal_expiry_datepicker').change(function () {
+      data = { deals_with_expiry_date_filter: $(this).val() }
+      $.get("<%= deals_with_last_expiry_date_path %>", data);
+    });
 
 });
 
