@@ -2,7 +2,7 @@
 
   <div class="top_part" style="width:100%; height:auto; overflow: hidden; margin-bottom:10px;">
     <div class="deals_sort_by" style="float:right; margin-right:45px">
-      <strong>Sort deals by:</strong>
+      <strong>Sort by:</strong>
       <select id="deals_sort_by" name="deals_sort_by">
         <option value="expiry" SELECTED>expiry</option>
         <option value="max_deal">max deal</option>
@@ -16,7 +16,7 @@
     <div>
       <h3>Filters</h3>
       <div>
-        <h5>by max/min deal:</h5>
+        <h5>by value:</h5>
         <span class="deal_value" id="deal_max_filter">max</span>|
         <span class="deal_value" id="deal_min_filter">min</span>
       </div>
@@ -35,20 +35,23 @@
             <% end %>
           </ol>
           <% if @other_tags.present? %>
+            <div style="clear: both;"></div>
             <div id="more_tags">more tags</div>
           <% end %>
       </div>
+      <div style="clear: both;"></div>
       <div>
         <h5>by companies:</h5>
           <ol id="selectable_companies">
             <% @top_companies.each do |c| %>
-              <li class="top_companies"><%= c.name %></li>
+              <li class="top_companies" id="<%= c.id %>"><%= c.name %></li>
             <% end %>
             <% @other_companies.each do |c| %>
-              <li class="other_companies"><%= c.name %></li>
+              <li class="other_companies" id="<%= c.id %>"><%= c.name %></li>
             <% end %>
           </ol>
           <% if @other_companies.present? %>
+            <div style="clear: both;"></div>
             <div id="more_companies">more companies</div>
           <% end %>
       </div>
@@ -67,13 +70,31 @@ $(document).ready(function(){
 
   <!-- Left Column Last ExpiryDate Datapicker -->
 
-    $( "#deal_expiry_datepicker" ).datepicker();
+    $("#deal_expiry_datepicker").datepicker();
 
   <!-- Selectable logic for tags -->
-    $( "#selectable_tags" ).selectable();
+    $("#selectable_tags").selectable({
+			stop: function() {
+        var tag_names = [];
+				$(".ui-selected", this).each(function() {
+          tag_names.push($(this).text());
+				});
+      data = { deals_with_tags_filter: tag_names };
+      $.get("<%= deals_with_tags_path %>", data);
+			}
+    });
 
   <!-- Selectable logic for companies -->
-    $( "#selectable_companies" ).selectable();
+    $("#selectable_companies").selectable({
+			stop: function() {
+        var companies_ids = [];
+				$(".ui-selected", this).each(function() {
+          companies_ids.push($(this).attr("id"));
+				});
+      data = { deals_by_companies_filter: companies_ids };
+      $.get("<%= deals_by_companies_path %>", data);
+			}
+    });
 
   <!-- Feed deal rating logic >
 

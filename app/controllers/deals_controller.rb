@@ -60,7 +60,7 @@ class DealsController < ApplicationController
   def deal_emails_by_companies
     Rails.logger.info "----------#{params.inspect}"
     # Search deals with companies
-    @deal_emails = current_user.deals_by_companies(params[:deals_by_companies_filter])
+    @deal_emails = current_user.deal_emails_by_companies(params[:deals_by_companies_filter])
 
     respond_to do |format|
       format.js
@@ -70,7 +70,7 @@ class DealsController < ApplicationController
   def deal_emails_with_tags
     Rails.logger.info "----------#{params.inspect}"
     # Search deals tagged with following tag list
-    @deal_emails = current_user.deals_tagged_with(params[:deals_with_tags_filter])
+    @deal_emails = current_user.deal_emails_tagged_with(params[:deals_with_tags_filter])
 
     respond_to do |format|
       format.js

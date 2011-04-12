@@ -46,12 +46,16 @@ class User < ActiveRecord::Base
     deal_emails.select{ |e| e.deal.expiry.to_date == (expiry_date) }
   end
 
-  def deals_by_companies(companies)
-    deal_emails.find_all_by_company_id(companies)
+  def deal_emails_by_companies(companies)
+    in_companies = []
+    companies.each { |company| in_companies += deal_emails.select { |e| e.deal.company_id == company.to_i } }
+    in_companies.uniq
   end
 
-  def deals_tagged_with(tag_list)
-    deal_emails.tagged_with(tag_list, :any => true)
+  def deal_emails_tagged_with(tag_list)
+    tagged = []
+    tag_list.each { |tag| tagged += deal_emails.select { |e| e.deal.tag_list.include?(tag) } }
+    tagged.uniq
   end
 
   def deals_by_rating

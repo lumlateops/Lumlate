@@ -55,14 +55,114 @@ end
 # Create DealType
 DealType.create!(:name => 'test_deal_type_1')
 
-# Create Deals
-(1..10).each do |n|
+# Create Deals and tags
+(1..5).each do |n|
   Deal.create!(:company_id => 1,
                :subscription_id => 1,
                :deal_type_id => 1,
                :title => "Test Deal #{n}",
                :description => "Test Deal description #{n}",
                :maxvalue => (1.5 + n),
+               :tag_list => ['ambulance','medicine','doctor haus'],
+               :expiry => (Time.now + (30 + n).days))
+end
+
+(6..10).each do |n|
+  Deal.create!(:company_id => 2,
+               :subscription_id => 2,
+               :deal_type_id => 1,
+               :title => "Test Deal #{n}",
+               :description => "Test Deal description #{n}",
+               :maxvalue => (1.5 + n),
+               :tag_list => ['school','children','kids'],
+               :expiry => (Time.now + (30 + n).days))
+end
+
+(11..15).each do |n|
+  Deal.create!(:company_id => 3,
+               :subscription_id => 3,
+               :deal_type_id => 1,
+               :title => "Test Deal #{n}",
+               :description => "Test Deal description #{n}",
+               :maxvalue => (1.5 + n),
+               :tag_list => ['madonna','music','beatles'],
+               :expiry => (Time.now + (30 + n).days))
+end
+
+(16..20).each do |n|
+  Deal.create!(:company_id => 4,
+               :subscription_id => 4,
+               :deal_type_id => 1,
+               :title => "Test Deal #{n}",
+               :description => "Test Deal description #{n}",
+               :maxvalue => (1.5 + n),
+               :tag_list => ['box','tayson','luis'],
+               :expiry => (Time.now + (30 + n).days))
+end
+
+(21..25).each do |n|
+  Deal.create!(:company_id => 5,
+               :subscription_id => 5,
+               :deal_type_id => 1,
+               :title => "Test Deal #{n}",
+               :description => "Test Deal description #{n}",
+               :maxvalue => (1.5 + n),
+               :tag_list => ['basketball','sports','football'],
+               :expiry => (Time.now + (30 + n).days))
+end
+
+(26..30).each do |n|
+  Deal.create!(:company_id => 6,
+               :subscription_id => 6,
+               :deal_type_id => 1,
+               :title => "Test Deal #{n}",
+               :description => "Test Deal description #{n}",
+               :maxvalue => (1.5 + n),
+               :tag_list => ['movie','comedy','drama'],
+               :expiry => (Time.now + (30 + n).days))
+end
+
+(31..35).each do |n|
+  Deal.create!(:company_id => 7,
+               :subscription_id => 7,
+               :deal_type_id => 1,
+               :title => "Test Deal #{n}",
+               :description => "Test Deal description #{n}",
+               :maxvalue => (1.5 + n),
+               :tag_list => ['actors','actreess','theathre'],
+               :expiry => (Time.now + (30 + n).days))
+end
+
+(36..40).each do |n|
+  Deal.create!(:company_id => 8,
+               :subscription_id => 8,
+               :deal_type_id => 1,
+               :title => "Test Deal #{n}",
+               :description => "Test Deal description #{n}",
+               :maxvalue => (1.5 + n),
+               :tag_list => ['dance','club','dj'],
+               :expiry => (Time.now + (30 + n).days))
+end
+
+(41..45).each do |n|
+  Deal.create!(:company_id => 9,
+               :subscription_id => 9,
+               :deal_type_id => 1,
+               :title => "Test Deal #{n}",
+               :description => "Test Deal description #{n}",
+               :maxvalue => (1.5 + n),
+               :tag_list => ['army','tanks','separatists'],
+               :expiry => (Time.now + (30 + n).days))
+end
+
+(46..50).each do |n|
+  Deal.create!(:company_id => 10,
+               :subscription_id => 10,
+               :deal_type_id => 1,
+               :title => "Test Deal #{n}",
+               :description => "Test Deal description #{n}",
+               :maxvalue => (1.5 + n),
+               :tag_list => ['business','politics','department'],
                :expiry => (Time.now + (30 + n).days))
 end
 
@@ -70,7 +170,7 @@ end
 EmailType.create!(:name => 'Deal')
 
 # Create Emails
-(1..10).each do |n|
+(1..50).each do |n|
   Email.create!(:user_id => 1,
                 :subscription_id => 1,
                 :deal_id => n,

@@ -18,7 +18,7 @@
 }
 
 #Deals .ui-selected {
-  background-color: yellow;
+  background: #DEF6F7;
 }
 
 #Deals .other_companies, #Deals .other_tags {
@@ -43,7 +43,11 @@
 }
 
 #Deals ol#selectable_tags {
-  margin-bottom: 5px;
+  margin-bottom: 3px;
+}
+
+#Deals ol#selectable_companies {
+  margin-bottom: 7px;
 }
 
 #Deals .left_filters div {
@@ -117,5 +121,14 @@
 
 #Deals .rating_stars {
   float: left;
+}
+
+#Deals #more_tags, #Deals #more_companies, #deal_expiry_datepicker, .deal_value {
+  cursor: pointer;
+}
+
+#Deals ol#selectable_tags li {
+  float: left;
+  padding: 0 3px;
 }
 
