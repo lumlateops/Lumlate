@@ -19,12 +19,12 @@ Lumlate::Application.routes.draw do
 
   resources :deals
 
-  match 'deals_by_max_or_min_value' => 'deals#deals_by_max_or_min_value'
-  match 'deals_by_expiry_date' => 'deals#deals_by_expiry_date'
-  match 'deals_with_last_expiry_date' => 'deals#deals_with_last_expiry_date'
-  match 'deals_by_companies' => 'deals#deals_by_companies'
-  match 'deals_with_tags' => 'deals#deals_with_tags'
-  match 'deals_by_rating' => 'deals#deals_by_rating'
+  match 'deals_by_max_or_min_value' => 'deals#deal_emails_by_max_or_min_value'
+  match 'deals_by_expiry_date' => 'deals#deal_emails_by_expiry_date'
+  match 'deals_with_last_expiry_date' => 'deals#deal_emails_with_last_expiry_date'
+  match 'deals_by_companies' => 'deals#deal_emails_by_companies'
+  match 'deals_with_tags' => 'deals#deal_emails_with_tags'
+  match 'deals_by_rating' => 'deals#deal_emails_by_rating'
 
   # Sample resource route with options:
   #   resources :products do

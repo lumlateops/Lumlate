@@ -26,7 +26,7 @@ class DealsController < ApplicationController
     end
   end
 
-  def deals_by_max_or_min_value
+  def deal_emails_by_max_or_min_value
     # Get deals sorted by max or min value
     if params[:deals_by_value_filter] == 'max'
       @deal_emails = current_user.deal_emails_by_max_value
@@ -39,7 +39,7 @@ class DealsController < ApplicationController
     end
   end
 
-  def deals_by_expiry_date
+  def deal_emails_by_expiry_date
     # Get deals sorted by expiry date
     @deal_emails = current_user.deal_emails_by_expiry_date
 
@@ -48,7 +48,7 @@ class DealsController < ApplicationController
     end
   end
 
-  def deals_with_last_expiry_date
+  def deal_emails_with_last_expiry_date
     # Search deal with expiry date
     @deal_emails = current_user.deal_emails_with_expiry_date(params[:deals_with_expiry_date_filter].to_date)
 
@@ -57,22 +57,34 @@ class DealsController < ApplicationController
     end
   end
 
-  def deals_by_companies
+  def deal_emails_by_companies
     Rails.logger.info "----------#{params.inspect}"
     # Search deals with companies
     @deal_emails = current_user.deals_by_companies(params[:deals_by_companies_filter])
+
+    respond_to do |format|
+      format.js
+    end
   end
 
-  def deals_with_tags
+  def deal_emails_with_tags
     Rails.logger.info "----------#{params.inspect}"
     # Search deals tagged with following tag list
     @deal_emails = current_user.deals_tagged_with(params[:deals_with_tags_filter])
+
+    respond_to do |format|
+      format.js
+    end
   end
 
-  def deals_by_rating
+  def deal_emails_by_rating
     Rails.logger.info "----------#{params.inspect}"
     # Get deals sorted by rating
     @deal_emails = current_user.deals_by_rating
+
+    respond_to do |format|
+      format.js
+    end
   end
 end
 
