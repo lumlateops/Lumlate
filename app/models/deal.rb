@@ -6,12 +6,17 @@ class Deal < ActiveRecord::Base
   belongs_to :subscription
   belongs_to :deal_type
   has_many :emails
+  has_many :votes
 
   validates_associated :company
   validates_associated :deal_type
   validates :title, :presence => true
 
   acts_as_taggable_on :tags
+
+  def recalc
+    update_attribute(:rating, votes.average(:rating).to_i)
+  end
 
   def slug
     title.parameterize()

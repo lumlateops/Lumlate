@@ -3,7 +3,7 @@
 </h3>
 
 <div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom deal_info">
-  Sent at: <%= deal_email.sent %><br />
+   Sent at: <%= deal_email.sent %><br />
   <%= deal_email.deal.title %><br />
   <strong>$</strong> <%= deal_email.deal.maxvalue %><br />
   Will expiry <%= distance_of_time_in_words(Time.now, deal_email.deal.expiry) %><br />
@@ -32,11 +32,32 @@
 <!-- <script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script> -->
 <script type="text/javascript">
 
-$(document).ready(function(){
+  $(document).ready(function(){
 
-  <!-- Hide rating and like for deal_emails zone when DOM loaded -->
+      $("#stars-wrapper_<%= deal_email.deal.id %>").stars({
+        <% if !can_vote?(deal_email.deal.id) %>
+          disabled: true,
+        <% end %>
+        inputType: "select",
+	oneVoteOnly: true,
+        captionEl: $("#stars-wrapper2-cap"),
+        callback: function(ui, type, value){
+        $.ajax({
+          type: 'post',
+          dataType: 'script',
+          url: '/deals/<%=deal_email.deal.id%>/votes',
+          data: "vote=" + this.value
+          });
+        $("#stars-wrapper_<%= deal_email.deal.id %>").stars("select", value);
+        }
+        });
+        <% if !can_vote?(deal_email.deal.id) %>
+          $("#stars-wrapper_<%= deal_email.deal.id %>").stars("select", <%= deal_email.deal.rating.to_i %>);
+        <% end %>
 
-    $('.rate_and_like').hide();
+      <!-- Hide rating and like for deal_emails zone when DOM loaded -->
+
+      $('.rate_and_like').hide();
 
   <!-- Highlighting logic -->
 

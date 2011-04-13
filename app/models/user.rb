@@ -12,6 +12,7 @@ class User < ActiveRecord::Base
   has_many :user_subscriptions, :dependent => :destroy
   has_many :deals, :through => :emails
   has_many :emails, :dependent => :destroy
+  has_many :votes
 
   validates :username, :presence => true, :uniqueness => true
   validates :username, :presence => true, :uniqueness => true, :length => { :maximum => 14, :minimum => 4 }
