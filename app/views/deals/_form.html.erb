@@ -53,9 +53,7 @@
         $("#stars-wrapper_<%= deal_email.deal.id %>").stars("select", value);
         }
         });
-        <% if !can_vote?(deal_email.deal.id) %>
-          $("#stars-wrapper_<%= deal_email.deal.id %>").stars("select", <%= deal_email.deal.rating.to_i %>);
-        <% end %>
+        $("#stars-wrapper_<%= deal_email.deal.id %>").stars("select", <%= deal_email.deal.rating.to_i %>);
 
       <!-- Hide rating and like for deal_emails zone when DOM loaded -->
 
