@@ -39,6 +39,7 @@
           disabled: true,
         <% end %>
         inputType: "select",
+	oneVoteOnly: true,
         captionEl: $("#stars-wrapper2-cap"),
         callback: function(ui, type, value){
         $.ajax({
@@ -48,7 +49,6 @@
           data: "vote=" + this.value
           });
         $("#stars-wrapper_<%= deal_email.deal.id %>").stars("select", value);
-        $("#stars-wrapper_<%= deal_email.deal.id %>").html(disabled="You've already voted. Refresh the page!");
         }
         });
         <% if !can_vote?(deal_email.deal.id) %>
