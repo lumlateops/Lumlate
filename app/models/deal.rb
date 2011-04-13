@@ -14,8 +14,8 @@ class Deal < ActiveRecord::Base
 
   acts_as_taggable_on :tags
 
-  def average_rating
-    ratings.average(:rating)
+  def recalc
+    update_attribute(:rating, votes.average(:rating).to_i)
   end
 
   def slug
