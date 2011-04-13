@@ -68,11 +68,12 @@
 
 $(document).ready(function(){
 
-  <!-- Left Column Last ExpiryDate Datapicker -->
+  <!-- Left Column Last ExpiryDate initialize Datapicker -->
 
     $("#deal_expiry_datepicker").datepicker();
 
-  <!-- Selectable logic for tags -->
+  <!-- Left Column Selectable logic for tags -->
+
     $("#selectable_tags").selectable({
 			stop: function() {
         var tag_names = [];
@@ -84,7 +85,8 @@ $(document).ready(function(){
 			}
     });
 
-  <!-- Selectable logic for companies -->
+  <!-- Left Column Selectable logic for companies -->
+
     $("#selectable_companies").selectable({
 			stop: function() {
         var companies_ids = [];
@@ -96,51 +98,52 @@ $(document).ready(function(){
 			}
     });
 
-  <!-- Feed deal rating logic >
+  <!-- Left Column more tags logic -->
 
-    $('.rating_stars').stars({
-      inputType: "select"
+    $('#more_tags').click(function() {
+      current_text = $(this).text();
+      if(current_text=='more tags'){
+        $(this).text("hide other tags");
+        $('.other_tags').fadeIn(1000);
+      }
+      else {
+        $(this).text("more tags");
+        $('.other_tags').fadeOut(1000);
+      }
     });
 
-  <!-- Left Column max_deal/min_deal filter logic -->
+  <!-- Left Column more companies logic -->
 
-  $('#deal_value_filter').click(function() {
-    current_text = $(this).text();
-    if(current_text=='max'){
-      $(this).text("min");
-    }
-    else {
-      $(this).text("max");
-    }
-  });
+    $('#more_companies').click(function() {
+      current_text = $(this).text();
+      if(current_text=='more companies'){
+        $(this).text("hide other companies");
+        $('.other_companies').fadeIn(1000);
+      }
+      else {
+        $(this).text("more companies");
+        $('.other_companies').fadeOut(1000);
+      }
+    });
 
-  <!-- Left Column companies filter logic -->
+  <!-- Left Column Max/Min filters logic -->
 
-  $('#more_tags').click(function() {
-    current_text = $(this).text();
-    if(current_text=='more tags'){
-      $(this).text("hide other tags");
-      $('.other_tags').fadeIn(1000);
-    }
-    else {
-      $(this).text("more tags");
-      $('.other_tags').fadeOut(1000);
-    }
-  });
+    $('#deal_max_filter').click(function() {
+      data = { deals_by_value_filter: "max" }
+      $.get("<%= deals_by_max_or_min_value_path %>", data);
+    });
 
-  <!-- Left Column companies filter logic -->
+    $('#deal_min_filter').click(function() {
+      data = { deals_by_value_filter: "min" }
+      $.get("<%= deals_by_max_or_min_value_path %>", data);
+    });
 
-  $('#more_companies').click(function() {
-    current_text = $(this).text();
-    if(current_text=='more companies'){
-      $(this).text("hide other companies");
-      $('.other_companies').fadeIn(1000);
-    }
-    else {
-      $(this).text("more companies");
-      $('.other_companies').fadeOut(1000);
-    }
-  });
+  <!-- Left Column Last ExpiryDate filters logic -->
+
+    $('#deal_expiry_datepicker').change(function () {
+      data = { deals_with_expiry_date_filter: $(this).val() }
+      $.get("<%= deals_with_last_expiry_date_path %>", data);
+    });
 
   <!-- Top right sort_by_box logic -->
 
@@ -164,23 +167,10 @@ $(document).ready(function(){
       });
     }).change();
 
-  <!-- Left Column Max/Min filters logic -->
+  <!-- Feed deal initialize rating logic >
 
-    $('#deal_max_filter').click(function() {
-      data = { deals_by_value_filter: "max" }
-      $.get("<%= deals_by_max_or_min_value_path %>", data);
-    });
-
-    $('#deal_min_filter').click(function() {
-      data = { deals_by_value_filter: "min" }
-      $.get("<%= deals_by_max_or_min_value_path %>", data);
-    });
-
-  <!-- Left Column Max/Min filters logic -->
-
-    $('#deal_expiry_datepicker').change(function () {
-      data = { deals_with_expiry_date_filter: $(this).val() }
-      $.get("<%= deals_with_last_expiry_date_path %>", data);
+    $('.rating_stars').stars({
+      inputType: "select"
     });
 
 });

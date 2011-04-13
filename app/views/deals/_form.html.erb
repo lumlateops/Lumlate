@@ -34,12 +34,14 @@
 
   $(document).ready(function(){
 
+    <!-- Stars ratings logic -->
+
       $("#stars-wrapper_<%= deal_email.deal.id %>").stars({
         <% if !can_vote?(deal_email.deal.id) %>
           disabled: true,
         <% end %>
         inputType: "select",
-	oneVoteOnly: true,
+	      oneVoteOnly: true,
         captionEl: $("#stars-wrapper2-cap"),
         callback: function(ui, type, value){
         $.ajax({
