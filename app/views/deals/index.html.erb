@@ -4,7 +4,8 @@
     <div class="deals_sort_by" style="float:right; margin-right:45px">
       <strong>Sort by:</strong>
       <select id="deals_sort_by" name="deals_sort_by">
-        <option value="expiry" SELECTED>expiry</option>
+        <option SELECTED>select...</option>
+        <option value="expiry">expiry</option>
         <option value="max_deal">max deal</option>
         <option value="min_deal">min deal</option>
         <option value="rating">rating</option>
@@ -58,10 +59,12 @@
     </div>
   </div>
 
-  <div class="deals_list" style="width:82%; height:auto; float:right; overflow: hidden;">
+  <div class="deals_list" id="deals_list" style="width:82%; height:auto; float:right; overflow: hidden;">
     <%= render :partial => 'form', :collection => @deal_emails, :as => :deal_email %>
-    <h5 id="no_deals" style="display:none;">No records!</h5>
   </div>
+
+  <div id="loading"></div>
+  <%= link_to "Load more", "#", :class => "next" %>
 </div>
 
 <script type="text/javascript">
@@ -151,6 +154,7 @@ $(document).ready(function(){
       $("select#deals_sort_by option:selected").each(function () {
         var str = $(this).text();
         if(str=='expiry'){
+          alert('sfsdf');
           $.get("<%= deals_by_expiry_date_path %>");
         }
         else if(str=='max deal') {
@@ -173,7 +177,21 @@ $(document).ready(function(){
       inputType: "select"
     });
 
+  <!-- Feed deal 'more deals' button logic -->
+
+    var currPage = 1;
+    $("a.next").click(function() {
+        loadMore(++currPage);
+    });
+
 });
+
+  <!-- Feed deal load_more_function logic -->
+
+    function loadMore(pageNo) {
+      var url = '/deals.js?page=';
+      $.get(url + pageNo);
+    }
 
 </script>
 

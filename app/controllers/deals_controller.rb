@@ -3,9 +3,7 @@ class DealsController < ApplicationController
 
   def index
     @deal_email_type = EmailType.find_by_name("Deal");
-    @deal_emails = current_user.deal_emails_by_expiry_date.paginate :page => params[:page],
-      :order => '"from" DESC',
-      :conditions => {:email_type_id => @deal_email_type.id}
+    @deal_emails = current_user.deal_emails_by_expiry_date.paginate(:page => params[:page], :per_page => 2)
 
     # Sorting companies by deals count and define top 5 and other companies
     user_companies = current_user.deals.map { |s| s.company }.uniq
@@ -23,6 +21,7 @@ class DealsController < ApplicationController
     respond_to do |format|
       format.html { render :layout => !request.xhr? }
       format.json { render :json => @deals }
+      format.js
     end
   end
 
