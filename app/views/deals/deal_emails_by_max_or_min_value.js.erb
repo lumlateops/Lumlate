@@ -2,4 +2,6 @@ $(".deals_list").html("<%= escape_javascript(render(:partial => 'form', :collect
 $('.rating_stars').stars({
   inputType: "select"
 });
+$('#hidden_current_page').text("<%= @deal_emails.current_page %>");
+$('#hidden_url').text('/deals_by_max_or_min_value.js?page=');
 
