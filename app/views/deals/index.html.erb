@@ -22,7 +22,7 @@
       </div>
       <div>
         <h5>with expiry date:</h5>
-        <input type="text" id="deal_expiry_datepicker" value="Select date..." size="10" />
+        <input type="text" id="deal_expiry_datepicker" value="Select date..." size="15" />
       </div>
       <div>
         <h5>by tags:</h5>
@@ -59,10 +59,13 @@
   </div>
 
   <div class="deals_list" id="deals_list">
-    <%= render :partial => 'form', :collection => @deal_emails, :as => :deal_email %>
+    <div id="deal_emails">
+      <%= render :partial => 'form', :collection => @deal_emails, :as => :deal_email %>
+    </div>
     <div id="loading"></div>
     <%= link_to "Load more", "#", :class => "next" %>
   </div>
+
   <div id="hidden_url" style="display:none;">'/deals.js?page='</div>
   <div id="hidden_current_page" style="display:none;">1</div>
 </div>
@@ -169,11 +172,11 @@ $(document).ready(function(){
         if(str=='expiry'){
           $.get("<%= deals_by_expiry_date_path %>");
         }
-        else if(str=='max deal') {
+        else if(str=='max') {
           data = { deals_by_value_filter: "max" }
           $.get("<%= deals_by_max_or_min_value_path %>", data);
         }
-        else if(str=='min deal') {
+        else if(str=='min') {
           data = { deals_by_value_filter: "min" }
           $.get("<%= deals_by_max_or_min_value_path %>", data);
         }

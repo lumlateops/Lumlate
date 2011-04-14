@@ -18,7 +18,7 @@
 }
 
 #Deals .ui-selected {
-  background: #DEF6F7;
+  background-color: #DEF6F7;
 }
 
 #Deals .other_companies, #Deals .other_tags {
@@ -30,12 +30,12 @@
 }
 
 #Deals #companies_filter li, #Deals tag_filter li {
-  width: 100px;
+  width: auto;
   height 20px;
 }
 
 #Deals .deals_list h3.ui-accordion-header, #Deals .deals_list div.ui-accordion-content {
-  width: 735px;
+  width: 705px;
 }
 
 #Deals .left_filters h5 {
@@ -44,6 +44,7 @@
 
 #Deals ol#selectable_tags {
   margin-bottom: 3px;
+  width: 130px;
 }
 
 #Deals ol#selectable_companies {
@@ -123,6 +124,11 @@
   float: left;
 }
 
+#Deal input#deal_expiry_datepicker {
+  width: 115px;
+  padding-left: 10px;
+}
+
 #Deals #more_tags, #Deals #more_companies, #deal_expiry_datepicker, .deal_value {
   cursor: pointer;
 }
@@ -132,9 +138,13 @@
   padding: 0 3px;
 }
 
+#Deals ol#selectable_companies li {
+  padding: 0 3px;
+}
+
 #Deals a.next {
   float:right;
-  margin-right:35px;
+  margin-right:43px;
   margin-top:15px
 }
 

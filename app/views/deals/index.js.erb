@@ -1,4 +1,4 @@
-$(".deals_list").append("<%= escape_javascript(render(:partial => 'form', :collection => @deal_emails, :as => :deal_email)) %>");
+$("#deal_emails").append("<%= escape_javascript(render(:partial => 'form', :collection => @deal_emails, :as => :deal_email)) %>");
 $('.rating_stars').stars({
   inputType: "select"
 });

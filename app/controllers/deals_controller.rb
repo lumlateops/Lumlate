@@ -51,7 +51,6 @@ class DealsController < ApplicationController
     # Search deal with expiry date
     @deal_emails = current_user.deal_emails_with_expiry_date(params[:deals_with_expiry_date_filter].to_date).paginate(:page => params[:page], :per_page => 10)
 
-
     respond_to do |format|
       format.js
     end
