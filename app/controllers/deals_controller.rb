@@ -3,7 +3,7 @@ class DealsController < ApplicationController
 
   def index
     @deal_email_type = EmailType.find_by_name("Deal");
-    @deal_emails = current_user.deal_emails_by_expiry_date.paginate(:page => params[:page], :per_page => 2)
+    @deal_emails = current_user.deal_emails_by_expiry_date.paginate(:page => params[:page], :per_page => 10)
 
     # Sorting companies by deals count and define top 5 and other companies
     user_companies = current_user.deals.map { |s| s.company }.uniq
@@ -26,12 +26,11 @@ class DealsController < ApplicationController
   end
 
   def deal_emails_by_max_or_min_value
-    Rails.logger.info "----------#{params.inspect}"
     # Get deals sorted by max or min value
     if params[:deals_by_value_filter] == 'max'
-      @deal_emails = current_user.deal_emails_by_max_value.paginate(:page => params[:page], :per_page => 2)
+      @deal_emails = current_user.deal_emails_by_max_value.paginate(:page => params[:page], :per_page => 10)
     else
-      @deal_emails = current_user.deal_emails_by_min_value.paginate(:page => params[:page], :per_page => 2)
+      @deal_emails = current_user.deal_emails_by_min_value.paginate(:page => params[:page], :per_page => 10)
     end
 
     respond_to do |format|
@@ -41,7 +40,7 @@ class DealsController < ApplicationController
 
   def deal_emails_by_expiry_date
     # Get deals sorted by expiry date
-    @deal_emails = current_user.deal_emails_by_expiry_date.paginate(:page => params[:page], :per_page => 2)
+    @deal_emails = current_user.deal_emails_by_expiry_date.paginate(:page => params[:page], :per_page => 10)
 
     respond_to do |format|
       format.js
@@ -50,7 +49,7 @@ class DealsController < ApplicationController
 
   def deal_emails_with_last_expiry_date
     # Search deal with expiry date
-    @deal_emails = current_user.deal_emails_with_expiry_date(params[:deals_with_expiry_date_filter].to_date).paginate(:page => params[:page], :per_page => 2)
+    @deal_emails = current_user.deal_emails_with_expiry_date(params[:deals_with_expiry_date_filter].to_date).paginate(:page => params[:page], :per_page => 10)
 
 
     respond_to do |format|
@@ -60,7 +59,7 @@ class DealsController < ApplicationController
 
   def deal_emails_by_companies
     # Search deals with companies
-    @deal_emails = current_user.deal_emails_by_companies(params[:deals_by_companies_filter]).paginate(:page => params[:page], :per_page => 2)
+    @deal_emails = current_user.deal_emails_by_companies(params[:deals_by_companies_filter]).paginate(:page => params[:page], :per_page => 10)
 
     respond_to do |format|
       format.js
@@ -69,7 +68,7 @@ class DealsController < ApplicationController
 
   def deal_emails_with_tags
     # Search deals tagged with following tag list
-    @deal_emails = current_user.deal_emails_tagged_with(params[:deals_with_tags_filter]).paginate(:page => params[:page], :per_page => 2)
+    @deal_emails = current_user.deal_emails_tagged_with(params[:deals_with_tags_filter]).paginate(:page => params[:page], :per_page => 10)
 
     respond_to do |format|
       format.js
@@ -77,9 +76,8 @@ class DealsController < ApplicationController
   end
 
   def deal_emails_by_rating
-    Rails.logger.info "----------#{params.inspect}"
     # Get deals sorted by rating
-    @deal_emails = current_user.deals_by_rating.paginate(:page => params[:page], :per_page => 2)
+    @deal_emails = current_user.deal_emails_by_rating.paginate(:page => params[:page], :per_page => 10)
 
     respond_to do |format|
       format.js

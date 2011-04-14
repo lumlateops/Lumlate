@@ -132,3 +132,9 @@
   padding: 0 3px;
 }
 
+#Deals a.next {
+  float:right;
+  margin-right:35px;
+  margin-top:15px
+}
+

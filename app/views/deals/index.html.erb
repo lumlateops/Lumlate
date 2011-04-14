@@ -61,12 +61,11 @@
 
   <div class="deals_list" id="deals_list" style="width:82%; height:auto; float:right; overflow: hidden;">
     <%= render :partial => 'form', :collection => @deal_emails, :as => :deal_email %>
+    <div id="loading"></div>
+    <%= link_to "Load more", "#", :class => "next" %>
   </div>
-
-  <div id="loading"></div>
   <div id="hidden_url" style="display:none;">'/deals.js?page='</div>
   <div id="hidden_current_page" style="display:none;">1</div>
-  <%= link_to "Load more", "#", :class => "next" %>
 </div>
 
 <script type="text/javascript">
@@ -156,7 +155,6 @@ $(document).ready(function(){
       $("select#deals_sort_by option:selected").each(function () {
         var str = $(this).text();
         if(str=='expiry'){
-          alert('sfsdf');
           $.get("<%= deals_by_expiry_date_path %>");
         }
         else if(str=='max deal') {
@@ -167,11 +165,15 @@ $(document).ready(function(){
           data = { deals_by_value_filter: "min" }
           $.get("<%= deals_by_max_or_min_value_path %>", data);
         }
-        else {
-          // we will add there get ajax request for rating once it will be done
+        else if(str=='rating') {
+          $.get("<%= deals_by_rating_path %>");
         }
       });
     }).change();
+
+  <!-- Feed deal initialize 'more' button -->
+
+    $('a.next').button();
 
   <!-- Feed deal initialize rating logic >
 

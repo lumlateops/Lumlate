@@ -59,8 +59,8 @@ class User < ActiveRecord::Base
     tagged.uniq
   end
 
-  def deals_by_rating
-    # There we will add method later
+  def deal_emails_by_rating
+    deal_emails.sort { |a,b| b.deal.rating <=> a.deal.rating }
   end
 
   def self.find_for_facebook_oauth(access_token, signed_in_resource=nil)
