@@ -138,3 +138,43 @@
   margin-top:15px
 }
 
+#Deals div.top_part {
+  width:100%;
+  height:auto;
+  overflow: hidden;
+  margin-bottom:10px;
+}
+
+#Deals div.deals_sort_by {
+  float:right;
+  margin-right:45px;
+}
+
+#Deals select#deals_sort_by {
+  width:80px;
+}
+
+#Deals div.left_filters {
+  width:20%;
+  height:auto;
+  float: left;
+  overflow: hidden;
+}
+
+#Deals div.deals_list {
+  width:80%;
+  height:auto;
+  float:right;
+  overflow: hidden;
+}
+
+#Deals div.deal_value_range {
+  width: 140px;
+}
+
+#Deals #amount {
+  border:0;
+  color:#f6931f;
+  font-weight:bold; 100px;
+}
+

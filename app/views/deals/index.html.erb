@@ -1,25 +1,24 @@
 <div id="deals-feed" class="span-24 last">
 
-  <div class="top_part" style="width:100%; height:auto; overflow: hidden; margin-bottom:10px;">
-    <div class="deals_sort_by" style="float:right; margin-right:45px">
+  <div class="top_part">
+    <div class="deals_sort_by">
       <strong>Sort by:</strong>
-      <select id="deals_sort_by" name="deals_sort_by">
-        <option SELECTED>select...</option>
+      <select id="deals_sort_by">
         <option value="expiry">expiry</option>
-        <option value="max_deal">max deal</option>
-        <option value="min_deal">min deal</option>
         <option value="rating">rating</option>
+        <option value="max_deal">max</option>
+        <option value="min_deal">min</option>
       </select>
     </div>
   </div>
 
-  <div class="left_filters" style="width:18%; height:auto; float: left; overflow: hidden;">
+  <div class="left_filters">
     <div>
       <h3>Filters</h3>
-      <div>
-        <h5>by value:</h5>
-        <span class="deal_value" id="deal_max_filter">max</span>|
-        <span class="deal_value" id="deal_min_filter">min</span>
+      <div class="deal_value_range">
+        <h5>by deal value range:</h5>
+        <input type="text" id="amount" /><br />
+        <div id="deal_range"></div>
       </div>
       <div>
         <h5>with expiry date:</h5>
@@ -59,7 +58,7 @@
     </div>
   </div>
 
-  <div class="deals_list" id="deals_list" style="width:82%; height:auto; float:right; overflow: hidden;">
+  <div class="deals_list" id="deals_list">
     <%= render :partial => 'form', :collection => @deal_emails, :as => :deal_email %>
     <div id="loading"></div>
     <%= link_to "Load more", "#", :class => "next" %>
@@ -149,6 +148,19 @@ $(document).ready(function(){
       $.get("<%= deals_with_last_expiry_date_path %>", data);
     });
 
+  <!-- Left Column Max/Min value slider -->
+
+    $( "#deal_range" ).slider({
+			range: true,
+			min: 0,
+			max: 500,
+			values: [ 75, 300 ],
+			slide: function( event, ui ) {
+				$( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+			}
+		});
+    $( "#amount" ).val( "$" + $( "#deal_range" ).slider( "values", 0 ) + " - $" + $( "#deal_range" ).slider( "values", 1 ) );
+
   <!-- Top right sort_by_box logic -->
 
     $("#deals_sort_by").change(function () {
@@ -170,6 +182,10 @@ $(document).ready(function(){
         }
       });
     }).change();
+
+  <!-- Top Right box initialize select box -->
+
+    $('#deals_sort_by').selectmenu();
 
   <!-- Feed deal initialize 'more' button -->
 
