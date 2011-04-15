@@ -31,6 +31,14 @@ class User < ActiveRecord::Base
     emails.select { |e| e.deal.present? }
   end
 
+  def deals_max_value
+    deals.maximum(:maxvalue)
+  end
+
+  def deals_min_value
+    deals.minimum(:maxvalue)
+  end
+
   def deal_emails_by_max_value
     deal_emails.sort { |a,b| b.deal.maxvalue <=> a.deal.maxvalue }
   end
@@ -61,6 +69,10 @@ class User < ActiveRecord::Base
 
   def deal_emails_by_rating
     deal_emails.sort { |a,b| b.deal.rating <=> a.deal.rating }
+  end
+
+  def deal_emails_in_value_range(min, max)
+    deal_emails.select { |e| e.deal.maxvalue >= min.to_f && e.deal.maxvalue <= max.to_f }
   end
 
   def self.find_for_facebook_oauth(access_token, signed_in_resource=nil)

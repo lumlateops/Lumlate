@@ -157,9 +157,15 @@ $(document).ready(function(){
 
     $( "#deal_range" ).slider({
 			range: true,
-			min: 0,
-			max: 500,
-			values: [ 75, 300 ],
+			min: parseFloat("<%= current_user.deals_min_value %>"),
+			max: parseFloat("<%= current_user.deals_max_value %>"),
+			values: [ parseFloat("<%= current_user.deals_min_value %>"), parseFloat("<%= current_user.deals_max_value %>") ],
+      stop: function(event, ui) {
+        minimum = ui.values[ 0 ];
+        maximum = ui.values[ 1 ];
+        data = { min_value : minimum, max_value: maximum }
+        $.get("<%= deals_in_value_range_path %>", data);
+      },
 			slide: function( event, ui ) {
 				$( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
 			}

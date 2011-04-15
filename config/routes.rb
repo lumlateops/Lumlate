@@ -27,6 +27,7 @@ Lumlate::Application.routes.draw do
   match 'deals_by_companies' => 'deals#deal_emails_by_companies'
   match 'deals_with_tags' => 'deals#deal_emails_with_tags'
   match 'deals_by_rating' => 'deals#deal_emails_by_rating'
+  match 'deals_in_value_range' => 'deals#deal_emails_in_value_range'
 
   # Sample resource route with options:
   #   resources :products do
