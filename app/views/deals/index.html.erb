@@ -45,9 +45,11 @@
           <ol id="selectable_companies">
             <% @top_companies.each do |c| %>
               <li class="top_companies" id="<%= c.id %>"><%= c.name %></li>
+              <div style="clear: both; margin: 0;"></div>
             <% end %>
             <% @other_companies.each do |c| %>
               <li class="other_companies" id="<%= c.id %>"><%= c.name %></li>
+              <div style="clear: both; margin: 0;"></div>
             <% end %>
           </ol>
           <% if @other_companies.present? %>

@@ -139,7 +139,8 @@
 }
 
 #Deals ol#selectable_companies li {
-  padding: 0 3px;
+  float:left;
+  padding: 0 5px;
 }
 
 #Deals a.next {
