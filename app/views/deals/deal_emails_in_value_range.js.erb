@@ -1,5 +1,11 @@
-$("#deal_emails").html("<%= escape_javascript(render(:partial => 'form', :collection => @deal_emails, :as => :deal_email)) %>");
+<% if @load %>
+  $("#deal_emails").append("<%= escape_javascript(render(:partial => 'form', :collection => @deal_emails, :as => :deal_email)) %>");
+<% else %>
+  $("#deal_emails").html("<%= escape_javascript(render(:partial => 'form', :collection => @deal_emails, :as => :deal_email)) %>");
+<% end %>
 $('.rating_stars').stars({
   inputType: "select"
 });
+$('#hidden_current_page').text("<%= @deal_emails.current_page %>");
+$('#hidden_url').text('/deals_in_value_range.js?page=');
 

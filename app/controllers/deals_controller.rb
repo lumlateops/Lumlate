@@ -36,6 +36,8 @@ class DealsController < ApplicationController
         paginate(:page => params[:page], :per_page => 10)
     end
 
+    @load = true if params[:page].present?
+
     respond_to do |format|
       format.js
     end
@@ -45,6 +47,8 @@ class DealsController < ApplicationController
     # Get deals sorted by expiry date
     @deal_emails = current_user.deal_emails_by_expiry_date.
       paginate(:page => params[:page], :per_page => 10)
+
+    @load = true if params[:page].present?
 
     respond_to do |format|
       format.js
@@ -56,6 +60,8 @@ class DealsController < ApplicationController
     @deal_emails = current_user.deal_emails_with_expiry_date(params[:deals_with_expiry_date_filter].to_date).
       paginate(:page => params[:page], :per_page => 10)
 
+    @load = true if params[:page].present?
+
     respond_to do |format|
       format.js
     end
@@ -65,6 +71,8 @@ class DealsController < ApplicationController
     # Search deals with companies
     @deal_emails = current_user.deal_emails_by_companies(params[:deals_by_companies_filter]).
       paginate(:page => params[:page], :per_page => 10)
+
+    @load = true if params[:page].present?
 
     respond_to do |format|
       format.js
@@ -76,6 +84,8 @@ class DealsController < ApplicationController
     @deal_emails = current_user.deal_emails_tagged_with(params[:deals_with_tags_filter]).
       paginate(:page => params[:page], :per_page => 10)
 
+    @load = true if params[:page].present?
+
     respond_to do |format|
       format.js
     end
@@ -86,6 +96,8 @@ class DealsController < ApplicationController
     @deal_emails = current_user.deal_emails_by_rating.
       paginate(:page => params[:page], :per_page => 10)
 
+    @load = true if params[:page].present?
+
     respond_to do |format|
       format.js
     end
@@ -95,6 +107,8 @@ class DealsController < ApplicationController
     # Get deals in value range
     @deal_emails = current_user.deal_emails_in_value_range(params[:min_value], params[:max_value]).
       paginate(:page => params[:page], :per_page => 10)
+
+    @load = true if params[:page].present?
 
     respond_to do |format|
       format.js

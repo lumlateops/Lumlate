@@ -68,8 +68,8 @@
     <%= link_to "Load more", "#", :class => "next" %>
   </div>
 
-  <div id="hidden_url" style="display:none;">'/deals.js?page='</div>
-  <div id="hidden_current_page" style="display:none;">1</div>
+  <div id="hidden_url" style="display:none;"></div>
+  <div id="hidden_current_page" style="display:none;"></div>
 </div>
 
 <script type="text/javascript">
@@ -174,11 +174,18 @@ $(document).ready(function(){
 
   <!-- Top right sort_by_box logic -->
 
+    var first_expiry_sorting = true;
+
     $("#deals_sort_by").change(function () {
       $("select#deals_sort_by option:selected").each(function () {
         var str = $(this).text();
         if(str=='expiry'){
-          $.get("<%= deals_by_expiry_date_path %>");
+          if(first_expiry_sorting == true){
+            first_expiry_sorting = false;
+          }
+          else{
+            $.get("<%= deals_by_expiry_date_path %>");
+          }
         }
         else if(str=='max') {
           data = { deals_by_value_filter: "max" }
