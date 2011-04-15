@@ -1,7 +1,10 @@
-<% if @load %>
-  $("#deal_emails").append("<%= escape_javascript(render(:partial => 'form', :collection => @deal_emails, :as => :deal_email)) %>");
+$("#deal_emails").append("<%= escape_javascript(render(:partial => 'form', :collection => @deal_emails, :as => :deal_email)) %>");
+<% if @deal_emails.blank? %>
+  $('#no_records').fadeIn(1000);
+  $('a.next').hide();
 <% else %>
-  $("#deal_emails").html("<%= escape_javascript(render(:partial => 'form', :collection => @deal_emails, :as => :deal_email)) %>");
+  $('a.next').show();
+  $('#no_records').hide();
 <% end %>
 $('.rating_stars').stars({
   inputType: "select"

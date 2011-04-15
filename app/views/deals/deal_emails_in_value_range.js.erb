@@ -3,6 +3,13 @@
 <% else %>
   $("#deal_emails").html("<%= escape_javascript(render(:partial => 'form', :collection => @deal_emails, :as => :deal_email)) %>");
 <% end %>
+<% if @deal_emails.blank? %>
+  $('#no_records').fadeIn(1000);
+  $('a.next').hide();
+<% else %>
+  $('a.next').show();
+  $('#no_records').hide();
+<% end %>
 $('.rating_stars').stars({
   inputType: "select"
 });

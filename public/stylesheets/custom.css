@@ -189,3 +189,11 @@
   font-weight:bold; 100px;
 }
 
+#Deals #no_records {
+  display:none;
+  width: 90%;
+  border: 1px dashed gray;
+  padding:15px 0 10px 20px;
+  margin:10px; height: 25px;
+}
+

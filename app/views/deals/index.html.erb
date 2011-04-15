@@ -64,7 +64,7 @@
     <div id="deal_emails">
       <%= render :partial => 'form', :collection => @deal_emails, :as => :deal_email %>
     </div>
-    <div id="loading"></div>
+    <div id="no_records"><h5>No deal emails for your condition!</h5></div>
     <%= link_to "Load more", "#", :class => "next" %>
   </div>
 
