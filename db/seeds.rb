@@ -16,7 +16,7 @@ end
 (1..10).each do |n|
   Company.create!(:name => "test_company_#{n}",
                   :domain => "testcompany#{n}.com",
-                  :image => "http://lakitu.wakcdn.com/w2/cda9590d7/images/nozzman_level_devotee.png")
+                  :image => "http://www.dot.ru/images/content/vacancy.png")
 end
 
 # Create Locations for Companies
