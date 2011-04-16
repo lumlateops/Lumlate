@@ -1,14 +1,24 @@
-$("#deal_emails").append("<%= escape_javascript(render(:partial => 'form', :collection => @deal_emails, :as => :deal_email)) %>");
+<% if @pages_count > @page %>
+    $("#deal_emails").append("<%= escape_javascript(render(:partial => 'form', :collection => @deal_emails, :as => :deal_email)) %>");
+    $('#hidden_current_page').text("<%= @page %>");
+    $('#hidden_url').text('/deals.js?page=');
+<% elsif @pages_count == @page %>
+    $("#deal_emails").append("<%= escape_javascript(render(:partial => 'form', :collection => @deal_emails, :as => :deal_email)) %>");
+    $('#hidden_current_page').text("");
+    $('#hidden_url').text("");
+    $(".next").hide();
+<% else %>
+    $(".next").hide();
+<% end %>
+
 <% if @deal_emails.blank? %>
   $('#no_records').fadeIn(1000);
   $('a.next').hide();
 <% else %>
-  $('a.next').show();
   $('#no_records').hide();
 <% end %>
+
 $('.rating_stars').stars({
   inputType: "select"
 });
-$('#hidden_current_page').text("<%= @deal_emails.current_page %>");
-$('#hidden_url').text('/deals.js?page=');
 

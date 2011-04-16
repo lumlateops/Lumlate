@@ -65,7 +65,7 @@
       <%= render :partial => 'form', :collection => @deal_emails, :as => :deal_email %>
     </div>
     <div id="no_records"><h5>No deal emails for your condition!</h5></div>
-    <%= link_to "Load more", "#", :class => "next" %>
+    <%= link_to "Load more", "javascript:void(0);", :class => "next" %>
   </div>
 
   <div id="hidden_url" style="display:none;"></div>
@@ -220,6 +220,7 @@ $(document).ready(function(){
     var first_case = true;
 
     $("a.next").click(function() {
+      $('span.ui-button-text').html('loading...');
       if(first_case == true ){
         first_case = false;
         var currPage = 1;
@@ -237,7 +238,10 @@ $(document).ready(function(){
   <!-- Feed deal load_more_function logic -->
 
     function loadMore(url, pageNo) {
-      $.get(url + pageNo);
+      $.get(url + pageNo).success(function() {
+        $('html, body').animate({scrollTop: $('#deal_emails').height()}, 800);
+        $('span.ui-button-text').html('Load more');
+      });
     }
 
 </script>

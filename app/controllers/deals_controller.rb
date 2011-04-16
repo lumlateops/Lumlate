@@ -3,8 +3,21 @@ class DealsController < ApplicationController
 
   def index
     @deal_email_type = EmailType.find_by_name("Deal");
-    @deal_emails = current_user.deal_emails_by_expiry_date.
-      paginate(:page => params[:page], :per_page => 10)
+
+    # Paginating deal_emails
+    # NOTE: basic pagination like (will_paginate or kaminari) not support multiple
+    # paginating for one Model (in our case, Email), so we use simple 'hand made'
+    # pagination, showed below. In addition, this code runs faster! =)
+    per_page = 10
+    if params[:page].present?
+      @page = params[:page].to_i
+      sleep(2)
+    else
+      @page = 1
+    end
+    deal_emails = current_user.deal_emails_by_expiry_date[0...50]
+    @pages_count = (deal_emails.count / per_page) + (deal_emails.count % per_page)
+    @deal_emails = deal_emails[((@page - 1) * per_page)...(@page * per_page)]
 
     # Sorting companies by deals count and define top 5 and other companies
     user_companies = current_user.deals.map { |s| s.company }.uniq
