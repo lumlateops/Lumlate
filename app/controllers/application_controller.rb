@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE
   protect_from_forgery
-  before_filter :set_current_account
+  #before_filter :set_current_account
 
   private
     def set_current_account
