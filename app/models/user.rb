@@ -2,10 +2,10 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable, :lockable and :timeoutable
   devise :database_authenticatable, :registerable,
-    :recoverable, :rememberable, :trackable, :validatable
+    :recoverable, :rememberable, :trackable, :validatable, :oauthable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, 
+  attr_accessible :email, :password, :password_confirmation, :remember_me,
                   :username, :login, :to_label
   attr_accessor :login
   has_many :subscriptions, :through => :user_subscriptions
@@ -13,10 +13,19 @@ class User < ActiveRecord::Base
   has_many :emails, :dependent => :destroy
 
   validates :username, :presence => true, :uniqueness => true
- 
- def to_label
-   username
- end
+
+  def to_label
+    username
+  end
+
+  def self.find_for_facebook_oauth(access_token, signed_in_resource=nil)
+    data = ActiveSupport::JSON.decode(access_token.get('https://graph.facebook.com/me?'))
+    if user = User.find_by_email(data["email"])
+      user
+    else # Create an user with a stub password.
+      User.create!(:email => data["email"], :password => Devise.friendly_token[0,20])
+    end
+  end
 
   protected
 
@@ -63,3 +72,4 @@ class User < ActiveRecord::Base
  end
 
 end
+
