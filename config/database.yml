@@ -21,6 +21,6 @@ production:
   database: lumlate_heroku
   pool: 5
   username: root
-  password: 
+  password: lumlate$
   host: localhost
   timeout: 5000
