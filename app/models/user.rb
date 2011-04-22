@@ -10,12 +10,69 @@ class User < ActiveRecord::Base
   attr_accessor :login
   has_many :subscriptions, :through => :user_subscriptions
   has_many :user_subscriptions, :dependent => :destroy
+  has_many :deals, :through => :emails
   has_many :emails, :dependent => :destroy
+  has_many :votes
 
-  validates :username, :presence => true, :uniqueness => true
+  validates :email, :presence => true, :uniqueness => true, :length => { :maximum => 30, :minimum => 8 }
+  validates :username, :presence => true, :uniqueness => true, :length => { :maximum => 14, :minimum => 4 }
 
   def to_label
     username
+  end
+
+  def tags
+    tags = []
+    deals.map{ |d| d.tag_list.each { |t| tags << t } }
+    tags.uniq
+  end
+
+  def deal_emails
+    emails.select { |e| e.deal.present? }
+  end
+
+  def deals_max_value
+    deals.maximum(:maxvalue)
+  end
+
+  def deals_min_value
+    deals.minimum(:maxvalue)
+  end
+
+  def deal_emails_by_max_value
+    deal_emails.sort { |a,b| b.deal.maxvalue <=> a.deal.maxvalue }
+  end
+
+  def deal_emails_by_min_value
+    deal_emails.sort{ |a,b| a.deal.maxvalue <=> b.deal.maxvalue  }
+  end
+
+  def deal_emails_by_expiry_date
+    deal_emails.sort{ |a,b| a.deal.expiry <=> b.deal.expiry  }
+  end
+
+  def deal_emails_with_expiry_date(expiry_date)
+    deal_emails.select{ |e| e.deal.expiry.to_date == (expiry_date) }
+  end
+
+  def deal_emails_by_companies(companies)
+    in_companies = []
+    companies.each { |company| in_companies += deal_emails.select { |e| e.deal.company_id == company.to_i } }
+    in_companies.uniq
+  end
+
+  def deal_emails_tagged_with(tag_list)
+    tagged = []
+    tag_list.each { |tag| tagged += deal_emails.select { |e| e.deal.tag_list.include?(tag) } }
+    tagged.uniq
+  end
+
+  def deal_emails_by_rating
+    deal_emails.sort { |a,b| b.deal.rating <=> a.deal.rating }
+  end
+
+  def deal_emails_in_value_range(min, max)
+    deal_emails.select { |e| e.deal.maxvalue >= min.to_f && e.deal.maxvalue <= max.to_f }
   end
 
   def self.find_for_facebook_oauth(access_token, signed_in_resource=nil)

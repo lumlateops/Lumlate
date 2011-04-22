@@ -16,8 +16,18 @@ Lumlate::Application.routes.draw do
 
   # Sample resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
-  
-  resources :deals
+
+  resources :deals do
+    resources :votes, :only => :create
+  end
+
+  match 'deals_by_max_or_min_value' => 'deals#deal_emails_by_max_or_min_value'
+  match 'deals_by_expiry_date' => 'deals#deal_emails_by_expiry_date'
+  match 'deals_with_last_expiry_date' => 'deals#deal_emails_with_last_expiry_date'
+  match 'deals_by_companies' => 'deals#deal_emails_by_companies'
+  match 'deals_with_tags' => 'deals#deal_emails_with_tags'
+  match 'deals_by_rating' => 'deals#deal_emails_by_rating'
+  match 'deals_in_value_range' => 'deals#deal_emails_in_value_range'
 
   # Sample resource route with options:
   #   resources :products do
@@ -62,3 +72,4 @@ Lumlate::Application.routes.draw do
   # Note: This route will make all actions in every controller accessible via GET requests.
   # match ':controller(/:action(/:id(.:format)))'
 end
+

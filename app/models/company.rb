@@ -12,9 +12,15 @@ class Company < ActiveRecord::Base
                    :uniqueness => true
 
   acts_as_taggable_on :tags
- 
+
   def subct
     subscriptions.count
   end
 
+  class << self
+    def sorted_by_max_deal_count(companies)
+      companies.sort { |a,b| b.deals.count <=> a.deals.count }
+    end
+  end
 end
+

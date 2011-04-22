@@ -1,20 +1,248 @@
 <div id="deals-feed" class="span-24 last">
 
-  <% @deal_emails.each do |deal_email| %>
-    <h3 class="ui-accordion-header ui-helper-reset ui-state-default ui-corner-all">
-      <a href="#"><%= deal_email.subject %></a>
-    </h3>
-    <div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom">
-      <% if deal_email.deal %>
-        Will expire at:<%= deal_email.deal.expiry %><br />
-        Tagged to: <%= deal_email.deal.tag_list %><br />
-        Deal is from: <%= deal_email.deal.company.name %> <br/>
-        Deal Type: <%= deal_email.deal.deal_type.name %>
-      <% end %>
-        Sent at:<%  deal_email.sent %><br/>
-        From: <%  deal_email.from %> <br/>
-        To: <% deal_email.to %> <br/>
-        
+  <div class="top_part">
+    <div class="deals_sort_by">
+      <strong>Sort by:</strong>
+      <select id="deals_sort_by">
+        <option value="expiry">expiry</option>
+        <option value="rating">rating</option>
+        <option value="max_deal">max</option>
+        <option value="min_deal">min</option>
+      </select>
     </div>
-  <% end %>
+  </div>
+
+  <div class="left_filters">
+    <div>
+      <h3>Filters</h3>
+      <div class="deal_value_range">
+        <h5>by deal value range:</h5>
+        <input type="text" id="amount" /><br />
+        <div id="deal_range"></div>
+      </div>
+      <div>
+        <h5>with expiry date:</h5>
+        <input type="text" id="deal_expiry_datepicker" value="Select date..." size="15" />
+      </div>
+      <div>
+        <h5>by tags:</h5>
+          <ol id="selectable_tags">
+            <% @first_ten_tags.each do |tag| %>
+              <li class="first_ten_tags"><%= tag %></li>
+            <% end %>
+            <% @other_tags.each do |tag| %>
+              <li class="other_tags"><%= tag %></li>
+            <% end %>
+          </ol>
+          <% if @other_tags.present? %>
+            <div style="clear: both;"></div>
+            <div id="more_tags">more tags</div>
+          <% end %>
+      </div>
+      <div style="clear: both;"></div>
+      <div>
+        <h5>by companies:</h5>
+          <ol id="selectable_companies">
+            <% @top_companies.each do |c| %>
+              <li class="top_companies" id="<%= c.id %>"><%= c.name %></li>
+              <div style="clear: both; margin: 0;"></div>
+            <% end %>
+            <% @other_companies.each do |c| %>
+              <li class="other_companies" id="<%= c.id %>"><%= c.name %></li>
+              <div style="clear: both; margin: 0;"></div>
+            <% end %>
+          </ol>
+          <% if @other_companies.present? %>
+            <div style="clear: both;"></div>
+            <div id="more_companies">more companies</div>
+          <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="deals_list" id="deals_list">
+    <div id="deal_emails">
+      <%= render :partial => 'form', :collection => @deal_emails, :as => :deal_email %>
+    </div>
+    <div id="no_records"><h5>No deal emails for your condition!</h5></div>
+    <%= link_to "Load more", "javascript:void(0);", :class => "next" %>
+  </div>
+
+  <div id="hidden_url" style="display:none;"></div>
+  <div id="hidden_current_page" style="display:none;"></div>
 </div>
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+
+  <!-- Left Column Last ExpiryDate initialize Datapicker -->
+
+    $("#deal_expiry_datepicker").datepicker();
+
+  <!-- Left Column Selectable logic for tags -->
+
+    $("#selectable_tags").selectable({
+			stop: function() {
+        var tag_names = [];
+				$(".ui-selected", this).each(function() {
+          tag_names.push($(this).text());
+				});
+      data = { deals_with_tags_filter: tag_names };
+      $.get("<%= deals_with_tags_path %>", data);
+			}
+    });
+
+  <!-- Left Column Selectable logic for companies -->
+
+    $("#selectable_companies").selectable({
+			stop: function() {
+        var companies_ids = [];
+				$(".ui-selected", this).each(function() {
+          companies_ids.push($(this).attr("id"));
+				});
+      data = { deals_by_companies_filter: companies_ids };
+      $.get("<%= deals_by_companies_path %>", data);
+			}
+    });
+
+  <!-- Left Column more tags logic -->
+
+    $('#more_tags').click(function() {
+      current_text = $(this).text();
+      if(current_text=='more tags'){
+        $(this).text("hide other tags");
+        $('.other_tags').fadeIn(1000);
+      }
+      else {
+        $(this).text("more tags");
+        $('.other_tags').fadeOut(1000);
+      }
+    });
+
+  <!-- Left Column more companies logic -->
+
+    $('#more_companies').click(function() {
+      current_text = $(this).text();
+      if(current_text=='more companies'){
+        $(this).text("hide other companies");
+        $('.other_companies').fadeIn(1000);
+      }
+      else {
+        $(this).text("more companies");
+        $('.other_companies').fadeOut(1000);
+      }
+    });
+
+  <!-- Left Column Max/Min filters logic -->
+
+    $('#deal_max_filter').click(function() {
+      data = { deals_by_value_filter: "max" }
+      $.get("<%= deals_by_max_or_min_value_path %>", data);
+    });
+
+    $('#deal_min_filter').click(function() {
+      data = { deals_by_value_filter: "min" }
+      $.get("<%= deals_by_max_or_min_value_path %>", data);
+    });
+
+  <!-- Left Column Last ExpiryDate filters logic -->
+
+    $('#deal_expiry_datepicker').change(function () {
+      data = { deals_with_expiry_date_filter: $(this).val() }
+      $.get("<%= deals_with_last_expiry_date_path %>", data);
+    });
+
+  <!-- Left Column Max/Min value slider -->
+
+    $( "#deal_range" ).slider({
+			range: true,
+			min: parseFloat("<%= current_user.deals_min_value %>"),
+			max: parseFloat("<%= current_user.deals_max_value %>"),
+			values: [ parseFloat("<%= current_user.deals_min_value %>"), parseFloat("<%= current_user.deals_max_value %>") ],
+      stop: function(event, ui) {
+        minimum = ui.values[ 0 ];
+        maximum = ui.values[ 1 ];
+        data = { min_value : minimum, max_value: maximum }
+        $.get("<%= deals_in_value_range_path %>", data);
+      },
+			slide: function( event, ui ) {
+				$( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+			}
+		});
+    $( "#amount" ).val( "$" + $( "#deal_range" ).slider( "values", 0 ) + " - $" + $( "#deal_range" ).slider( "values", 1 ) );
+
+  <!-- Top right sort_by_box logic -->
+
+    var first_expiry_sorting = true;
+
+    $("#deals_sort_by").change(function () {
+      $("select#deals_sort_by option:selected").each(function () {
+        var str = $(this).text();
+        if(str=='expiry'){
+          if(first_expiry_sorting == true){
+            first_expiry_sorting = false;
+          }
+          else{
+            $.get("<%= deals_by_expiry_date_path %>");
+          }
+        }
+        else if(str=='max') {
+          data = { deals_by_value_filter: "max" }
+          $.get("<%= deals_by_max_or_min_value_path %>", data);
+        }
+        else if(str=='min') {
+          data = { deals_by_value_filter: "min" }
+          $.get("<%= deals_by_max_or_min_value_path %>", data);
+        }
+        else if(str=='rating') {
+          $.get("<%= deals_by_rating_path %>");
+        }
+      });
+    }).change();
+
+  <!-- Top Right box initialize select box -->
+
+    $('#deals_sort_by').selectmenu();
+
+  <!-- Feed deal initialize 'more' button -->
+
+    $('a.next').button();
+
+  <!-- Feed deal initialize rating logic >
+
+    $('.rating_stars').stars({
+      inputType: "select"
+    });
+
+  <!-- Feed deal 'more deals' button logic -->
+
+    var first_case = true;
+
+    $("a.next").click(function() {
+      $('span.ui-button-text').html('loading...');
+      if(first_case == true ){
+        first_case = false;
+        var currPage = 1;
+        var url = "/deals.js?page=";
+      }
+      else{
+        var currPage = $('#hidden_current_page').text();
+        var url = $('#hidden_url').text();
+      }
+      loadMore(url, ++currPage);
+    });
+
+});
+
+  <!-- Feed deal load_more_function logic -->
+
+    function loadMore(url, pageNo) {
+      $.get(url + pageNo).success(function() {
+        $('html, body').animate({scrollTop: $('#deal_emails').height()}, 800);
+        $('span.ui-button-text').html('Load more');
+      });
+    }
+
+</script>
+

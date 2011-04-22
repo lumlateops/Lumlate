@@ -1,0 +1,77 @@
+<h3 class="ui-accordion-header ui-helper-reset ui-state-default ui-corner-all">
+  <a href="#"><%= deal_email.subject %></a>
+</h3>
+
+<div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom deal_info">
+   Sent at: <%= deal_email.sent %><br />
+  <%= deal_email.deal.title %><br />
+  <strong>$</strong> <%= deal_email.deal.maxvalue %><br />
+  Will expiry <%= distance_of_time_in_words(Time.now, deal_email.deal.expiry) %><br />
+  Company: <%= deal_email.deal.company.name %><br />
+  <%= image_tag(deal_email.deal.company.image) %><br />
+  Tag list: <%= deal_email.deal.tag_list.join(',') %><br />
+  <div class="rate_and_like" id="rate_and_like_<%= deal_email.deal.id %>">
+    <div id="deal_like">
+      <fb:like href="<%= deals_path %>" layout="button_count" show_faces="false" width="450" font=""></fb:like>
+    </div>
+    <div id="deal_rate">
+      <strong class="rating_title">Rating: </strong>
+      <div class="rating_stars" id="stars-wrapper_<%= deal_email.deal.id %>">
+        <select name="selrate">
+          <option value="1">Very poor</option>
+          <option value="2">Not that bad</option>
+          <option value="3">Average</option>
+          <option value="4" selected="selected">Good</option>
+          <option value="5">Perfect</option>
+        </select>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script>
+<script type="text/javascript">
+
+  $(document).ready(function(){
+
+    <!-- Stars ratings logic -->
+
+      $("#stars-wrapper_<%= deal_email.deal.id %>").stars({
+        <% if !can_vote?(deal_email.deal.id) %>
+          disabled: true,
+        <% end %>
+        inputType: "select",
+	      oneVoteOnly: true,
+        captionEl: $("#stars-wrapper2-cap"),
+        callback: function(ui, type, value){
+        $.ajax({
+          type: 'post',
+          dataType: 'script',
+          url: '/deals/<%=deal_email.deal.id%>/votes',
+          data: "vote=" + this.value
+          });
+        $("#stars-wrapper_<%= deal_email.deal.id %>").stars("select", value);
+        }
+        });
+
+      $("#stars-wrapper_<%= deal_email.deal.id %>").stars("select", <%= deal_email.deal.rating.to_i %>);
+
+      <!-- Hide rating and like for deal_emails zone when DOM loaded -->
+
+      $('.rate_and_like').hide();
+
+    <!-- Highlighting logic -->
+
+      $('.deal_info').hover(function() {
+        $(this).find('.rate_and_like').fadeIn(1000);
+        $(this).css("background","#DEF6F7");
+      },
+      function() {
+        $(this).find('.rate_and_like').fadeOut(1000);
+        $(this).css("background","white");
+      });
+
+  });
+
+</script>
+
